@@ -1,0 +1,20 @@
+schema_version: 1
+id: breach-intelligence
+display_name: Breach Intelligence
+status: implemented
+backend_path: backend/modules/breach
+frontend_path: modules-ui/src/modules/breach
+entrypoints:
+  - backend/modules/breach/breach_api.py
+  - backend/modules/breach/search_engine/main.py
+runtime_roles:
+  - backend
+  - breach-search
+  - breach-ingest
+datastores:
+  - clickhouse
+  - elasticsearch
+  - redis
+tests:
+  - backend/tests/test_infrastructure.py
+documentation: backend/modules/breach/README.md
