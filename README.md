@@ -2,7 +2,7 @@
   <img src="docs/assets/argus-repository-hero.png" alt="Argus Unified threat-intelligence observatory" width="100%">
 </p>
 
-<h1 align="center">Argus Unified</h1>
+<h1 align="center">CyberArgus</h1>
 
 <p align="center">
   A self-hosted, authorization-scoped threat-intelligence and investigation platform.<br>
