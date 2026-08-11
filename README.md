@@ -152,17 +152,7 @@ GitHub Actions:
 .\setup\test.ps1
 ```
 
-![Contributor workflow](docs/diagrams/developer-workflow.svg)
-
-Before opening a pull request:
-
-1. Start from [MODULES.md](MODULES.md) and keep the change in its owning boundary.
-2. Add focused tests and update the module README/manifest when contracts change.
-3. Run the quality gate and attach sanitized visual evidence for UI work.
-4. Describe authorization, network, data, migration, and rollback impact.
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md), the
-[testing guide](docs/development/testing.md), and the pull request template.
+For local verification, use the [testing guide](docs/development/testing.md).
 
 ## Security and production boundary
 

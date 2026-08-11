@@ -19,7 +19,6 @@ limitations rather than presenting roadmap work as complete.
 - [System architecture](diagrams/argus-architecture-simple.svg)
 - [Module ownership map](diagrams/module-map.svg)
 - [Request lifecycle](diagrams/request-lifecycle.svg)
-- [Contributor workflow](diagrams/developer-workflow.svg)
 
 ## Module reports
 
