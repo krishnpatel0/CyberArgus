@@ -55,7 +55,7 @@ jobs:
       - name: Python dependency audit
         run: python -m pip_audit -r backend/requirements.txt --timeout 60
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
           cache: npm
