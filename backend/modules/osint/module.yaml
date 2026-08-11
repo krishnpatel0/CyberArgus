@@ -1,0 +1,15 @@
+schema_version: 1
+id: osint-investigation
+display_name: OSINT Investigation
+status: implemented
+backend_path: backend/modules/osint
+frontend_path: modules-ui/src/modules/osint
+entrypoints:
+  - backend/modules/osint/osint_api.py
+runtime_roles:
+  - backend
+external_dependencies:
+  - public_web_sources
+tests:
+  - backend/tests/test_integration.py
+documentation: backend/modules/osint/README.md

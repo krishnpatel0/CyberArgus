@@ -1,0 +1,7052 @@
+{
+  "_meta": {
+    "version": "3.0.0",
+    "description": "Enterprise OSINT site definitions â€” India-centric, 300+ sites, multi-signal verification",
+    "last_updated": "2026-04-14",
+    "total_sites": 300,
+    "fields": {
+      "url": "Profile URL template ({} = username)",
+      "url_probe": "Optional API/probe URL for checking (defaults to url)",
+      "method": "HTTP method (GET/POST/HEAD, default GET)",
+      "request_payload": "JSON body for POST requests ({} = username)",
+      "tier": "1=Indian Priority + Top Global, 2=Global Mainstream, 3=Niche/Regional",
+      "category": "dev/social/media/creative/blog/business/gaming/india/other",
+      "claimed_if": "Positive signals â€” presence of ANY confirms account exists",
+      "not_claimed_if": "Negative signals â€” presence of ANY confirms account does NOT exist (checked even on 200)",
+      "ambiguous_if": "Ambiguous signals â€” produce Unverified, never assume Found",
+      "username_format": "Regex for valid usernames on this site",
+      "secondary_confirmation": "If true, re-check with different UA before reporting High confidence",
+      "delay_multiplier": "Multiply base delay by this (default 1.0)",
+      "antibot_risk": "low/medium/high â€” affects delay and confidence",
+      "known_username": "A known-existing username for calibration testing",
+      "error_type": "status_code/message/response_url",
+      "error_url": "URL pattern for redirect-based error detection"
+    }
+  },
+  "Facebook": {
+    "url": "https://www.facebook.com/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile_picture",
+      "userContent"
+    ],
+    "not_claimed_if": [
+      "page not found",
+      "content isn't available",
+      "This content isn't available right now"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up",
+      "Log in or sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9.]{5,50}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "zuck"
+  },
+  "Instagram": {
+    "url": "https://www.instagram.com/{}/",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile_pic_url",
+      "edge_followed_by"
+    ],
+    "not_claimed_if": [
+      "Sorry, this page isn't available",
+      "Page Not Found"
+    ],
+    "ambiguous_if": [
+      "login",
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{1,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "viaborncreator",
+    "alt_endpoints": [
+      {
+        "url": "https://m.instagram.com/{}/",
+        "method": "GET",
+        "type": "html",
+        "claimed_if": [
+          "og:title",
+          "profilePage_",
+          "\"username\":\""
+        ],
+        "not_claimed_if": [
+          "Sorry, this page isn't available"
+        ],
+        "claimed_if_status": [
+          200
+        ],
+        "not_claimed_if_status": [
+          404
+        ]
+      }
+    ]
+  },
+  "Twitter": {
+    "url": "https://x.com/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "message",
+    "claimed_if": [
+      "og:title",
+      "profile_image_url",
+      "followers_count"
+    ],
+    "not_claimed_if": [
+      "This account doesn't exist",
+      "User not found",
+      "Account suspended"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up",
+      "Caution: This account is temporarily restricted"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,15}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "naaborndramodi"
+  },
+  "YouTube": {
+    "url": "https://www.youtube.com/@{}",
+    "tier": 1,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "channel-header",
+      "subscriber"
+    ],
+    "not_claimed_if": [
+      "404 Not Found",
+      "This page isn't available"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Continue with Google"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "tseries"
+  },
+  "LinkedIn": {
+    "url": "https://www.linkedin.com/in/{}/",
+    "tier": 1,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-section",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "Page not found",
+      "This page doesn't exist",
+      "profile-not-found"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Join now",
+      "authwall"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,100}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 2.0,
+    "antibot_risk": "high",
+    "known_username": "satyanadella"
+  },
+  "WhatsAppBusiness": {
+    "url": "https://wa.me/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "response_url",
+    "error_url": "https://wa.me/",
+    "claimed_if": [
+      "Message",
+      "Chat on WhatsApp"
+    ],
+    "not_claimed_if": [
+      "shared this link with you",
+      "Click to chat"
+    ],
+    "ambiguous_if": [
+      "download",
+      "Continue to Chat"
+    ],
+    "username_format": "^[0-9]{10,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "919876543210"
+  },
+  "Telegram": {
+    "url": "https://t.me/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "message",
+    "claimed_if": [
+      "tgme_page_title",
+      "tgme_page_extra",
+      "tgme_page_photo"
+    ],
+    "not_claimed_if": [
+      "If you have <strong>Telegram</strong>, you can contact",
+      "tgme_page_icon"
+    ],
+    "ambiguous_if": [
+      "Preview channel"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{5,32}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "telegram"
+  },
+  "Snapchat": {
+    "url": "https://www.snapchat.com/add/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "snap-code"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "snapchat"
+  },
+  "ShareChat": {
+    "url": "https://sharechat.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profileImage",
+      "followerCount"
+    ],
+    "not_claimed_if": [
+      "User not found",
+      "Page not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Download ShareChat"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "sharechat"
+  },
+  "Josh": {
+    "url": "https://share.myjosh.in/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "userName",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "does not exist"
+    ],
+    "ambiguous_if": [
+      "download",
+      "install"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "joshindia"
+  },
+  "Moj": {
+    "url": "https://mojapp.in/@{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "followers",
+      "userName"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "mojindia"
+  },
+  "Roposo": {
+    "url": "https://www.roposo.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile_image",
+      "followers",
+      "og:title"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "user doesn't exist"
+    ],
+    "ambiguous_if": [
+      "download",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "roposo"
+  },
+  "Koo": {
+    "url": "https://www.kooapp.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profilePicture",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "does not exist"
+    ],
+    "ambiguous_if": [
+      "download",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "narendramodi"
+  },
+  "Chingari": {
+    "url": "https://chingari.io/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "chingari"
+  },
+  "MXTakaTak": {
+    "url": "https://www.mxtakatak.com/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "mxtakatak"
+  },
+  "Mitron": {
+    "url": "https://www.mitron.tv/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "mitrontv"
+  },
+  "Naukri": {
+    "url": "https://www.naukri.com/mnjuser/profile?id={}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "message",
+    "claimed_if": [
+      "profileName",
+      "experience",
+      "education"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "invalid",
+      "no profile"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "recruiter"
+  },
+  "Internshala": {
+    "url": "https://internshala.com/student/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "student_name",
+      "profile_detail",
+      "education"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "internshala"
+  },
+  "Shine": {
+    "url": "https://www.shine.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "resume",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "shine"
+  },
+  "Apna": {
+    "url": "https://apna.co/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "skills",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download",
+      "login"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "apna"
+  },
+  "IndeedIndia": {
+    "url": "https://my.indeed.com/p/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "resume",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "This page could not be found"
+    ],
+    "ambiguous_if": [
+      "sign in",
+      "create account"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "indeed"
+  },
+  "OLXIndia": {
+    "url": "https://www.olx.in/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member since",
+      "listings"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "This page is no longer available"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "olxindia"
+  },
+  "Quikr": {
+    "url": "https://www.quikr.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "ads posted",
+      "member"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "quikr"
+  },
+  "Meesho": {
+    "url": "https://meesho.com/supplier/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "supplier",
+      "products",
+      "rating"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download",
+      "login"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "meesho"
+  },
+  "FlipkartSeller": {
+    "url": "https://www.flipkart.com/seller/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "seller",
+      "products",
+      "rating"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "seller doesn't exist"
+    ],
+    "ambiguous_if": [
+      "login"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "retailnet"
+  },
+  "IndiaMART": {
+    "url": "https://www.indiamart.com/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "company",
+      "products",
+      "supplier"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "does not exist"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,100}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "indiamart"
+  },
+  "TradeIndia": {
+    "url": "https://www.tradeindia.com/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "company-profile",
+      "seller"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "tradeindia"
+  },
+  "JustDial": {
+    "url": "https://www.justdial.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "business-info",
+      "contact"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,40}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "justdial"
+  },
+  "Sulekha": {
+    "url": "https://www.sulekha.com/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "service-provider"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "sulekha"
+  },
+  "Zomato": {
+    "url": "https://www.zomato.com/users/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile_image",
+      "reviews",
+      "foodie_level"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "does not exist"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "deepindergoyal"
+  },
+  "Swiggy": {
+    "url": "https://www.swiggy.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "orders"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "swiggy"
+  },
+  "MakeMyTrip": {
+    "url": "https://www.makemytrip.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "traveller"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "makemytrip"
+  },
+  "Goibibo": {
+    "url": "https://www.goibibo.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "traveller"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "goibibo"
+  },
+  "BookMyShow": {
+    "url": "https://in.bookmyshow.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "bookmyshow"
+  },
+  "IRCTC": {
+    "url": "https://www.irctc.co.in/nget/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "message",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "invalid user"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "irctc"
+  },
+  "Shaadi": {
+    "url": "https://www.shaadi.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "profile does not exist"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "shaadi"
+  },
+  "BharatMatrimony": {
+    "url": "https://www.bharatmatrimony.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "bharatmatrimony"
+  },
+  "Jeevansathi": {
+    "url": "https://www.jeevansathi.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "jeevansathi"
+  },
+  "Practo": {
+    "url": "https://www.practo.com/doctor/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "doctor-profile",
+      "practice-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,60}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "medium",
+    "known_username": "dr-test"
+  },
+  "Zerodha": {
+    "url": "https://zerodha.com/varsity/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "nithin"
+  },
+  "Groww": {
+    "url": "https://groww.in/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "groww"
+  },
+  "Upstox": {
+    "url": "https://upstox.com/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "upstox"
+  },
+  "AngelOne": {
+    "url": "https://www.angelone.in/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "angelone"
+  },
+  "Dream11": {
+    "url": "https://www.dream11.com/user/{}",
+    "tier": 1,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile",
+      "matches"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "dream11"
+  },
+  "MPL": {
+    "url": "https://www.mpl.live/user/{}",
+    "tier": 1,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "mpl"
+  },
+  "WinZO": {
+    "url": "https://www.winzogames.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "player"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "winzo"
+  },
+  "RummyCircle": {
+    "url": "https://www.rummycircle.com/player/{}",
+    "tier": 1,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "player",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "rummycircle"
+  },
+  "JioCinema": {
+    "url": "https://www.jiocinema.com/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "jiocinema"
+  },
+  "Hotstar": {
+    "url": "https://www.hotstar.com/in/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "subscribe"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "hotstar"
+  },
+  "SonyLiv": {
+    "url": "https://www.sonyliv.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "subscribe"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "sonyliv"
+  },
+  "Zee5": {
+    "url": "https://www.zee5.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "login",
+      "subscribe"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "zee5"
+  },
+  "MXPlayer": {
+    "url": "https://www.mxplayer.in/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "mxplayer"
+  },
+  "Pinterest": {
+    "url": "https://www.pinterest.com/{}/",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "pinterestapp:followers",
+      "Board"
+    ],
+    "not_claimed_if": [
+      "404",
+      "User not found",
+      "Sorry! We couldn't find that page"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "pinterest",
+    "alt_endpoints": [
+      {
+        "url": "https://www.pinterest.com/{}/",
+        "method": "GET",
+        "type": "html",
+        "claimed_if": [
+          "\"username\":\"",
+          "ProfileBoardsFeedResource"
+        ],
+        "not_claimed_if": [
+          "404 — Pinterest"
+        ],
+        "claimed_if_status": [
+          200
+        ]
+      }
+    ]
+  },
+  "Reddit": {
+    "url": "https://www.reddit.com/user/{}/",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-header",
+      "karma",
+      "cake day"
+    ],
+    "not_claimed_if": [
+      "Sorry, nobody on Reddit goes by that name",
+      "page not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,20}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "spez",
+    "alt_endpoints": [
+      {
+        "url": "https://www.reddit.com/user/{}/about.json",
+        "method": "GET",
+        "type": "json",
+        "claimed_if": [
+          "\"is_employee\":",
+          "\"created_utc\":"
+        ],
+        "not_claimed_if": [
+          "\"error\": 404",
+          "\"reason\": \"banned\""
+        ],
+        "claimed_if_status": [
+          200
+        ],
+        "not_claimed_if_status": [
+          404
+        ]
+      }
+    ]
+  },
+  "Quora": {
+    "url": "https://www.quora.com/profile/{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile_photo",
+      "answers"
+    ],
+    "not_claimed_if": [
+      "Page Not Found",
+      "404",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,80}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "Adam-DAngelo"
+  },
+  "TikTok": {
+    "url": "https://www.tiktok.com/@{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "followerCount",
+      "uniqueId"
+    ],
+    "not_claimed_if": [
+      "Couldn't find this account",
+      "User not found",
+      "page_not_found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{2,24}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "tiktok",
+    "alt_endpoints": [
+      {
+        "url": "https://www.tiktok.com/@{}",
+        "method": "GET",
+        "type": "html",
+        "claimed_if": [
+          "\"uniqueId\":\"",
+          "SIGI_STATE",
+          "__UNIVERSAL_DATA_FOR_REHYDRATION__"
+        ],
+        "not_claimed_if": [
+          "Couldn't find this account"
+        ],
+        "claimed_if_status": [
+          200
+        ],
+        "not_claimed_if_status": [
+          404
+        ]
+      }
+    ]
+  },
+  "Threads": {
+    "url": "https://www.threads.net/@{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Sorry, this page isn't available"
+    ],
+    "ambiguous_if": [
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{1,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "threads"
+  },
+  "Bluesky": {
+    "url": "https://bsky.app/profile/{}.bsky.social",
+    "tier": 2,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "avatar",
+      "display-name"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Profile not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "bsky"
+  },
+  "GitHub": {
+    "url": "https://github.com/{}",
+    "url_probe": "https://api.github.com/users/{}",
+    "tier": 1,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "login",
+      "public_repos",
+      "avatar_url"
+    ],
+    "not_claimed_if": [
+      "Not Found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "torvalds",
+    "alt_endpoints": [
+      {
+        "url": "https://api.github.com/users/{}",
+        "method": "GET",
+        "type": "json",
+        "claimed_if": [
+          "\"login\":",
+          "\"id\":"
+        ],
+        "not_claimed_if": [
+          "\"message\": \"Not Found\""
+        ],
+        "claimed_if_status": [
+          200
+        ],
+        "not_claimed_if_status": [
+          404
+        ]
+      }
+    ]
+  },
+  "GitLab": {
+    "url": "https://gitlab.com/{}",
+    "url_probe": "https://gitlab.com/api/v4/users?username={}",
+    "tier": 1,
+    "category": "dev",
+    "error_type": "message",
+    "claimed_if": [
+      "username",
+      "avatar_url",
+      "id"
+    ],
+    "not_claimed_if": [
+      "[]"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_.-]{2,255}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "gitlab-org"
+  },
+  "StackOverflow": {
+    "url": "https://stackoverflow.com/users/{}",
+    "tier": 1,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-card",
+      "reputation",
+      "answers"
+    ],
+    "not_claimed_if": [
+      "Page not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[0-9]+/[a-zA-Z0-9_-]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "1/jeff-atwood"
+  },
+  "Bitbucket": {
+    "url": "https://bitbucket.org/{}/",
+    "url_probe": "https://api.bitbucket.org/2.0/users/{}",
+    "tier": 1,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "username",
+      "display_name",
+      "account_id"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "atlassian"
+  },
+  "AmazonInSeller": {
+    "url": "https://www.amazon.in/sp?seller={}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "seller-name",
+      "seller-info",
+      "rating"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "does not exist"
+    ],
+    "ambiguous_if": [
+      "sign in"
+    ],
+    "username_format": "^[A-Z0-9]{13,14}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "A21TJRUUN4KGV"
+  },
+  "Medium": {
+    "url": "https://medium.com/@{}",
+    "tier": 2,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "followerCount",
+      "profile-header"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found",
+      "We couldn't find this page"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Get started"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "ev"
+  },
+  "Substack": {
+    "url": "https://{}.substack.com",
+    "tier": 2,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "publication",
+      "subscribe"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "page doesn't exist"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "platformer"
+  },
+  "DevTo": {
+    "url": "https://dev.to/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "crayons-header__container",
+      "profile-header",
+      "article"
+    ],
+    "not_claimed_if": [
+      "404 Not Found",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Create account"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "ben"
+  },
+  "Hashnode": {
+    "url": "https://hashnode.com/@{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "sandeep"
+  },
+  "HackerNews": {
+    "url": "https://news.ycombinator.com/user?id={}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "message",
+    "claimed_if": [
+      "karma:",
+      "created:",
+      "about:"
+    ],
+    "not_claimed_if": [
+      "No such user."
+    ],
+    "ambiguous_if": [
+      "login"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{2,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "pg"
+  },
+  "Flickr": {
+    "url": "https://www.flickr.com/people/{}/",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "person-header",
+      "photostream"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9@_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "flickr"
+  },
+  "500px": {
+    "url": "https://500px.com/p/{}",
+    "tier": 2,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "photos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "page not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "500px"
+  },
+  "VSCO": {
+    "url": "https://vsco.co/{}/gallery",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "gallery",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "vsco"
+  },
+  "ArtStation": {
+    "url": "https://www.artstation.com/{}",
+    "tier": 2,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "user-profile",
+      "projects"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "artstation"
+  },
+  "Behance": {
+    "url": "https://www.behance.net/{}",
+    "tier": 2,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-card",
+      "projects"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Oops! We can't find that page"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "behance"
+  },
+  "Dribbble": {
+    "url": "https://dribbble.com/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "shots"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "dribbble"
+  },
+  "Unsplash": {
+    "url": "https://unsplash.com/@{}",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "photos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "unsplash"
+  },
+  "Etsy": {
+    "url": "https://www.etsy.com/shop/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "shop-home",
+      "shop-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[a-zA-Z0-9]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "etsy"
+  },
+  "Patreon": {
+    "url": "https://www.patreon.com/{}",
+    "tier": 2,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "creator-header",
+      "patron"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "page doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "patreon"
+  },
+  "Fiverr": {
+    "url": "https://www.fiverr.com/{}",
+    "tier": 2,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "seller-profile",
+      "gig"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "fiverr"
+  },
+  "Upwork": {
+    "url": "https://www.upwork.com/freelancers/~{}",
+    "tier": 2,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "freelancer"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9]{10,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "upwork"
+  },
+  "Freelancer": {
+    "url": "https://www.freelancer.com/u/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "freelancer-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "freelancer"
+  },
+  "Toptal": {
+    "url": "https://www.toptal.com/resume/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "resume"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Apply"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "toptal"
+  },
+  "Steam": {
+    "url": "https://steamcommunity.com/id/{}",
+    "tier": 2,
+    "category": "gaming",
+    "error_type": "message",
+    "claimed_if": [
+      "profile_header",
+      "actual_persona_name",
+      "game_count"
+    ],
+    "not_claimed_if": [
+      "The specified profile could not be found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,32}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "gaborabonern"
+  },
+  "Roblox": {
+    "url": "https://www.roblox.com/user.aspx?username={}",
+    "tier": 2,
+    "category": "gaming",
+    "error_type": "response_url",
+    "error_url": "https://www.roblox.com/request-error",
+    "claimed_if": [
+      "profile-header",
+      "avatar",
+      "friends"
+    ],
+    "not_claimed_if": [
+      "Page cannot be found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "Roblox"
+  },
+  "ChessCom": {
+    "url": "https://www.chess.com/member/{}",
+    "tier": 2,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-header",
+      "rating",
+      "member-since"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Member not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "hikaru"
+  },
+  "Lichess": {
+    "url": "https://lichess.org/@/{}",
+    "url_probe": "https://lichess.org/api/user/{}",
+    "tier": 2,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "username",
+      "perfs",
+      "count"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{2,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "DrNykterstein"
+  },
+  "Scribd": {
+    "url": "https://www.scribd.com/user/{}/",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "uploads"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[0-9]+/[a-zA-Z0-9_-]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "scribd"
+  },
+  "Wattpad": {
+    "url": "https://www.wattpad.com/user/{}",
+    "tier": 2,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "wattpad"
+  },
+  "Goodreads": {
+    "url": "https://www.goodreads.com/user/show/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "userProfile",
+      "shelf"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Sign up"
+    ],
+    "username_format": "^[0-9]+-[a-zA-Z0-9_-]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "1-otis-chandler"
+  },
+  "Letterboxd": {
+    "url": "https://letterboxd.com/{}/",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-stats",
+      "films"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Sorry, we can't find the page"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Create account"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{2,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "dave"
+  },
+  "Trakt": {
+    "url": "https://trakt.tv/users/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "user-profile",
+      "stats"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "sean"
+  },
+  "MyAnimeList": {
+    "url": "https://myanimelist.net/profile/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "user-profile",
+      "statistics"
+    ],
+    "not_claimed_if": [
+      "404 Not Found",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Login",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{2,16}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "Xinil"
+  },
+  "AniList": {
+    "url": "https://anilist.co/user/{}/",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "user",
+      "anime"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{2,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Josh"
+  },
+  "LeetCode": {
+    "url": "https://leetcode.com/{}",
+    "url_probe": "https://leetcode.com/graphql",
+    "method": "POST",
+    "request_payload": "{\"query\":\"query{matchedUser(username:\\\"{}\\\"){ username }}\"}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "message",
+    "claimed_if": [
+      "matchedUser",
+      "username"
+    ],
+    "not_claimed_if": [
+      "user does not exist",
+      "null",
+      "That user does not exist"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{1,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "neal_wu"
+  },
+  "HackerRank": {
+    "url": "https://www.hackerrank.com/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-heading",
+      "badges"
+    ],
+    "not_claimed_if": [
+      "404",
+      "page not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "hackerrank"
+  },
+  "Codeforces": {
+    "url": "https://codeforces.com/profile/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "main-info",
+      "rating",
+      "contribution"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{3,24}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "tourist"
+  },
+  "CodePen": {
+    "url": "https://codepen.io/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-header",
+      "pens"
+    ],
+    "not_claimed_if": [
+      "404",
+      "This Pen is not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "chriscoyier"
+  },
+  "Kaggle": {
+    "url": "https://www.kaggle.com/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-header",
+      "datasets"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "kaggle"
+  },
+  "HuggingFace": {
+    "url": "https://huggingface.co/{}",
+    "url_probe": "https://huggingface.co/api/users/{}/overview",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "models",
+      "datasets"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,96}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "google"
+  },
+  "Replit": {
+    "url": "https://replit.com/@{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "repls"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{2,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "amasad"
+  },
+  "DockerHub": {
+    "url": "https://hub.docker.com/u/{}",
+    "url_probe": "https://hub.docker.com/v2/users/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "id",
+      "username",
+      "date_joined"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "Not Found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-z0-9_-]{4,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "library"
+  },
+  "PyPI": {
+    "url": "https://pypi.org/user/{}/",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "projects",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,100}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "guido"
+  },
+  "npm": {
+    "url": "https://www.npmjs.com/~{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "packages",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-z0-9_-]{1,214}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "isaacs"
+  },
+  "Mastodon": {
+    "url": "https://mastodon.social/@{}",
+    "tier": 2,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "account__header",
+      "statuses_counter"
+    ],
+    "not_claimed_if": [
+      "The page you are looking for isn't here",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Gargron"
+  },
+  "VK": {
+    "url": "https://vk.com/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "wall_posts"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "This page doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "vk"
+  },
+  "Tumblr": {
+    "url": "https://{}.tumblr.com",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "blog",
+      "post"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "There's nothing here"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "tumblr"
+  },
+  "Blogger": {
+    "url": "https://www.blogger.com/profile/{}",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "blog-list"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[0-9]{10,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "12345678901234567890"
+  },
+  "WordPress": {
+    "url": "https://{}.wordpress.com",
+    "tier": 2,
+    "category": "blog",
+    "error_type": "message",
+    "claimed_if": [
+      "og:title",
+      "wp-content",
+      "entry-content"
+    ],
+    "not_claimed_if": [
+      "doesn't exist",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{4,32}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "wordpress"
+  },
+  "AboutMe": {
+    "url": "https://about.me/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "bio",
+      "social-links"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Claim this page"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "aboutme"
+  },
+  "Linktree": {
+    "url": "https://linktr.ee/{}",
+    "tier": 2,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "links"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Nothing to see here"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "linktree"
+  },
+  "Gravatar": {
+    "url": "https://gravatar.com/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "avatar",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "gravatar"
+  },
+  "Keybase": {
+    "url": "https://keybase.io/{}",
+    "tier": 3,
+    "category": "security",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info",
+      "public-key"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "keybase"
+  },
+  "Strava": {
+    "url": "https://www.strava.com/athletes/{}",
+    "tier": 3,
+    "category": "fitness",
+    "error_type": "status_code",
+    "claimed_if": [
+      "athlete-profile",
+      "stats"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[0-9]{3,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "12345"
+  },
+  "GarminConnect": {
+    "url": "https://connect.garmin.com/modern/profile/{}",
+    "tier": 3,
+    "category": "fitness",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "garmin"
+  },
+  "AllTrails": {
+    "url": "https://www.alltrails.com/members/{}",
+    "tier": 3,
+    "category": "fitness",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "alltrails"
+  },
+  "SpeakerDeck": {
+    "url": "https://speakerdeck.com/{}",
+    "tier": 3,
+    "category": "professional",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "deck-list"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "speakerdeck"
+  },
+  "SlideShare": {
+    "url": "https://www.slideshare.net/{}",
+    "tier": 3,
+    "category": "professional",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-header",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "slideshare"
+  },
+  "ResearchGate": {
+    "url": "https://www.researchgate.net/profile/{}",
+    "tier": 2,
+    "category": "academic",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "research-items"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "researchgate"
+  },
+  "AcademiaEdu": {
+    "url": "https://independent.academia.edu/{}",
+    "tier": 3,
+    "category": "academic",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "research"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "academia"
+  },
+  "ProductHunt": {
+    "url": "https://www.producthunt.com/@{}",
+    "tier": 3,
+    "category": "professional",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-header"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "producthunt"
+  },
+  "Wellfound": {
+    "url": "https://wellfound.com/u/{}",
+    "tier": 3,
+    "category": "professional",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "wellfound"
+  },
+  "Crunchbase": {
+    "url": "https://www.crunchbase.com/person/{}",
+    "tier": 3,
+    "category": "professional",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "person-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "crunchbase"
+  },
+  "Kickstarter": {
+    "url": "https://www.kickstarter.com/profile/{}",
+    "tier": 3,
+    "category": "crowdfunding",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "backed-projects"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "kickstarter"
+  },
+  "Indiegogo": {
+    "url": "https://www.indiegogo.com/individuals/{}/campaigns",
+    "tier": 3,
+    "category": "crowdfunding",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "campaigns"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "indiegogo"
+  },
+  "ItchIo": {
+    "url": "https://{}.itch.io",
+    "tier": 3,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "game-cell"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "itchio"
+  },
+  "GameJolt": {
+    "url": "https://gamejolt.com/@{}",
+    "tier": 3,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-header"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "gamejolt"
+  },
+  "Spotify": {
+    "url": "https://open.spotify.com/user/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "playlists"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "spotify"
+  },
+  "SoundCloud": {
+    "url": "https://soundcloud.com/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "userMain",
+      "soundTitle"
+    ],
+    "not_claimed_if": [
+      "We can't find that user",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Create account"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "soundcloud"
+  },
+  "Bandcamp": {
+    "url": "https://{}.bandcamp.com",
+    "tier": 3,
+    "category": "music",
+    "error_type": "status_code",
+    "claimed_if": [
+      "band-name",
+      "music-grid"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Sorry, that something isn't here"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "bandcamp"
+  },
+  "Mixcloud": {
+    "url": "https://www.mixcloud.com/{}/",
+    "tier": 3,
+    "category": "music",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-header",
+      "user-name"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "mixcloud"
+  },
+  "LastFm": {
+    "url": "https://www.last.fm/user/{}",
+    "tier": 3,
+    "category": "music",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile",
+      "library"
+    ],
+    "not_claimed_if": [
+      "404",
+      "User not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "lastfm"
+  },
+  "Vimeo": {
+    "url": "https://vimeo.com/{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile_header",
+      "user-name"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Sorry, we couldn't find that page"
+    ],
+    "ambiguous_if": [
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "vimeo"
+  },
+  "Dailymotion": {
+    "url": "https://www.dailymotion.com/{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "channel-info",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "dailymotion"
+  },
+  "Twitch": {
+    "url": "https://www.twitch.tv/{}",
+    "tier": 2,
+    "category": "gaming",
+    "error_type": "message",
+    "claimed_if": [
+      "og:title",
+      "channel-header",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "Sorry. Unless you've got a time machine",
+      "page is in another castle"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{4,25}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "ninja"
+  },
+  "Kick": {
+    "url": "https://kick.com/{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "channel-info",
+      "stream-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "This channel doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "kick"
+  },
+  "Disqus": {
+    "url": "https://disqus.com/by/{}/",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "disqus"
+  },
+  "Foursquare": {
+    "url": "https://foursquare.com/user/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-name"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[0-9]{3,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "123456"
+  },
+  "Duolingo": {
+    "url": "https://www.duolingo.com/profile/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "duolingo"
+  },
+  "Codecademy": {
+    "url": "https://www.codecademy.com/profiles/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "codecademy"
+  },
+  "Odysee": {
+    "url": "https://odysee.com/@{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "claim-preview",
+      "channel-header"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Channel Not Found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "odysee"
+  },
+  "Rumble": {
+    "url": "https://rumble.com/user/{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "channel-header",
+      "user-page"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "rumble"
+  },
+  "DLive": {
+    "url": "https://dlive.tv/{}",
+    "tier": 3,
+    "category": "video",
+    "error_type": "status_code",
+    "claimed_if": [
+      "channel",
+      "streamer"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "dlive"
+  },
+  "Pixiv": {
+    "url": "https://www.pixiv.net/en/users/{}",
+    "tier": 3,
+    "category": "art",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-name",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "User not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[0-9]{3,12}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "11"
+  },
+  "Newgrounds": {
+    "url": "https://{}.newgrounds.com",
+    "tier": 3,
+    "category": "art",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-header",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "newgrounds"
+  },
+  "Clubhouse": {
+    "url": "https://www.clubhouse.com/@{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-bio"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Get the app"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "clubhouse"
+  },
+  "Plurk": {
+    "url": "https://www.plurk.com/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "timeline"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "plurk"
+  },
+  "MirrorXyz": {
+    "url": "https://mirror.xyz/{}",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "publication",
+      "entries"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^0x[a-fA-F0-9]{40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "0x0000000000000000000000000000000000000000"
+  },
+  "MicroBlog": {
+    "url": "https://micro.blog/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "avatar",
+      "h-card"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "manton"
+  },
+  "Carrd": {
+    "url": "https://{}.carrd.co",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "content"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "carrd"
+  },
+  "Pastebin": {
+    "url": "https://pastebin.com/u/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "public-pastes",
+      "user-icon"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Unknown User"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "pastebin"
+  },
+  "Codeberg": {
+    "url": "https://codeberg.org/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info",
+      "activity-heatmap"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "codeberg"
+  },
+  "Gitea": {
+    "url": "https://gitea.com/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "gitea"
+  },
+  "SourceForge": {
+    "url": "https://sourceforge.net/u/{}/profile/",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "sourceforge"
+  },
+  "Exercism": {
+    "url": "https://exercism.org/profiles/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "exercism"
+  },
+  "Glitch": {
+    "url": "https://glitch.com/@{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-result"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "glitch"
+  },
+  "CodeSandbox": {
+    "url": "https://codesandbox.io/u/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "codesandbox"
+  },
+  "ArchiveOrg": {
+    "url": "https://archive.org/details/@{}",
+    "tier": 3,
+    "category": "misc",
+    "error_type": "status_code",
+    "claimed_if": [
+      "member-since",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "cannot find"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "internetarchive"
+  },
+  "SmugMug": {
+    "url": "https://{}.smugmug.com",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "gallery",
+      "photo"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "smugmug"
+  },
+  "EyeEm": {
+    "url": "https://www.eyeem.com/u/{}",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "photos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "eyeem"
+  },
+  "Instructables": {
+    "url": "https://www.instructables.com/member/{}/",
+    "tier": 3,
+    "category": "misc",
+    "error_type": "status_code",
+    "claimed_if": [
+      "member-header",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "instructables"
+  },
+  "Hackaday": {
+    "url": "https://hackaday.io/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "hacker-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "hackaday"
+  },
+  "SpeedRunCom": {
+    "url": "https://www.speedrun.com/users/{}",
+    "tier": 3,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-stats"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "speedrun"
+  },
+  "Backloggd": {
+    "url": "https://www.backloggd.com/u/{}/",
+    "tier": 3,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "game-log"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "backloggd"
+  },
+  "IMDB": {
+    "url": "https://www.imdb.com/user/{}/",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "user-profile",
+      "ratings"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^ur[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "ur0000001"
+  },
+  "Yelp": {
+    "url": "https://www.yelp.com/user_details?userid={}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile",
+      "review-count"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{10,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "yelp"
+  },
+  "NuGet": {
+    "url": "https://www.nuget.org/profiles/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "packages"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "microsoft"
+  },
+  "Packagist": {
+    "url": "https://packagist.org/users/{}/",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "packages"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "composer"
+  },
+  "FreeCodeCamp": {
+    "url": "https://www.freecodecamp.org/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "timeline"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "We could not find"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "freecodecamp"
+  },
+  "Coursera": {
+    "url": "https://www.coursera.org/user/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "courses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-f0-9]{32}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "4b2b6c1ee0bc9ce1d8c7abba54d8d2de"
+  },
+  "Udemy": {
+    "url": "https://www.udemy.com/user/{}/",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "courses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,60}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "udemy"
+  },
+  "Pluralsight": {
+    "url": "https://app.pluralsight.com/profile/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "pluralsight"
+  },
+  "RubyGems": {
+    "url": "https://rubygems.org/profiles/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "gems"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{2,40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "tenderlove"
+  },
+  "CratesIo": {
+    "url": "https://crates.io/users/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "crates"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{1,40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "alexcrichton"
+  },
+  "Lemmy": {
+    "url": "https://lemmy.world/u/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile",
+      "posts",
+      "comments"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404",
+      "Could not find user"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "admin"
+  },
+  "Peerlist": {
+    "url": "https://peerlist.io/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "work"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "peerlist"
+  },
+  "Polywork": {
+    "url": "https://www.polywork.com/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "highlights"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "polywork"
+  },
+  "ReadCv": {
+    "url": "https://read.cv/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "andy"
+  },
+  "Wakelet": {
+    "url": "https://wakelet.com/@{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "collections"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "wakelet"
+  },
+  "Notion": {
+    "url": "https://notion.so/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "notion-page"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,80}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "notion"
+  },
+  "CuriosityStream": {
+    "url": "https://curiositystream.com/user/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "curiositystream"
+  },
+  "Nebula": {
+    "url": "https://nebula.tv/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "creator",
+      "videos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "wendover"
+  },
+  "FloatPlane": {
+    "url": "https://www.floatplane.com/channel/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "channel",
+      "videos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "linustechtips"
+  },
+  "Observable": {
+    "url": "https://observablehq.com/@{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "notebooks"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,39}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "mbostock"
+  },
+  "Gumroad": {
+    "url": "https://{}.gumroad.com",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "products"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "sahil"
+  },
+  "KoFi": {
+    "url": "https://ko-fi.com/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile-header",
+      "supporter"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "kofi"
+  },
+  "BuyMeACoffee": {
+    "url": "https://www.buymeacoffee.com/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "supporters"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "jina"
+  },
+  "OpenSea": {
+    "url": "https://opensea.io/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "collected"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "This page is lost in space"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "opensea"
+  },
+  "Rarible": {
+    "url": "https://rarible.com/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "items"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "rarible"
+  },
+  "Foundation": {
+    "url": "https://foundation.app/@{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "artworks"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "foundation"
+  },
+  "Artsy": {
+    "url": "https://www.artsy.net/artist/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "artist",
+      "artworks"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,80}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "pablo-picasso"
+  },
+  "SaatchiArt": {
+    "url": "https://www.saatchiart.com/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "artist",
+      "artworks"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "saatchiart"
+  },
+  "Redbubble": {
+    "url": "https://www.redbubble.com/people/{}/shop",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "products"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "redbubble"
+  },
+  "Society6": {
+    "url": "https://society6.com/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "products"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "society6"
+  },
+  "TeePublic": {
+    "url": "https://www.teepublic.com/user/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "designs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "teepublic"
+  },
+  "Threadless": {
+    "url": "https://www.threadless.com/@{}/",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "designs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "threadless"
+  },
+  "Zazzle": {
+    "url": "https://www.zazzle.com/mbr/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "products"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In",
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "zazzle"
+  },
+  "CafePress": {
+    "url": "https://www.cafepress.com/profile/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "shops"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "cafepress"
+  },
+  "Displate": {
+    "url": "https://displate.com/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "displates"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "displate"
+  },
+  "DevPost": {
+    "url": "https://devpost.com/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "projects"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "devpost"
+  },
+  "HackerEarth": {
+    "url": "https://www.hackerearth.com/@{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "submissions"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "hackerearth"
+  },
+  "TopCoder": {
+    "url": "https://profiles.topcoder.com/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "rating",
+      "challenges"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Member not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{2,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "tourist"
+  },
+  "AtCoder": {
+    "url": "https://atcoder.jp/users/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-main-header",
+      "rating",
+      "competitions"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Login"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,16}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "tourist"
+  },
+  "SPOJ": {
+    "url": "https://www.spoj.com/users/{}/",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile-left",
+      "problems solved"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Login"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "author"
+  },
+  "GeeksForGeeks": {
+    "url": "https://www.geeksforgeeks.org/user/{}/",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profilePicSection",
+      "userName"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "geeksforgeeks"
+  },
+  "InterviewBit": {
+    "url": "https://www.interviewbit.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-header",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "interviewbit"
+  },
+  "Scaler": {
+    "url": "https://www.scaler.com/academy/profile/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "score"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "scaler"
+  },
+  "CodingNinjas": {
+    "url": "https://www.naukri.com/code360/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-info",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Page Not Found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "medium",
+    "known_username": "codingninjas"
+  },
+  "PrepInsta": {
+    "url": "https://prepinsta.com/profile/{}",
+    "tier": 3,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "prepinsta"
+  },
+  "Brilliant": {
+    "url": "https://brilliant.org/profile/{}/",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "brilliant"
+  },
+  "KhanAcademy": {
+    "url": "https://www.khanacademy.org/profile/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-profile",
+      "avatar"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "khanacademy"
+  },
+  "edX": {
+    "url": "https://profile.edx.org/u/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "learner"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "edx"
+  },
+  "Skillshare": {
+    "url": "https://www.skillshare.com/en/profile/{}/",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "skillshare"
+  },
+  "Domestika": {
+    "url": "https://www.domestika.org/en/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "courses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "domestika"
+  },
+  "ClassCentral": {
+    "url": "https://www.classcentral.com/u/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "reviews"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "1234"
+  },
+  "Alison": {
+    "url": "https://alison.com/profile/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "courses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "1234"
+  },
+  "FutureLearn": {
+    "url": "https://www.futurelearn.com/profiles/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "courses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "1234"
+  },
+  "Swayam": {
+    "url": "https://swayam.gov.in/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "learner"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "swayam"
+  },
+  "NPTEL": {
+    "url": "https://nptel.ac.in/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "learner"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "nptel"
+  },
+  "Unacademy": {
+    "url": "https://unacademy.com/user/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "educator",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Page not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Join for Free"
+    ],
+    "username_format": "^[a-zA-Z0-9._-]{3,40}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "medium",
+    "known_username": "unacademy"
+  },
+  "Vedantu": {
+    "url": "https://www.vedantu.com/teacher/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "teacher",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "vedantu"
+  },
+  "PhysicsWallah": {
+    "url": "https://www.pw.live/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "physicswallah"
+  },
+  "LinkedInCompany": {
+    "url": "https://www.linkedin.com/company/{}/",
+    "tier": 2,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "company-header",
+      "employees"
+    ],
+    "not_claimed_if": [
+      "Page not found",
+      "404",
+      "company-not-found"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Join now",
+      "authwall"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,100}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 2.0,
+    "antibot_risk": "high",
+    "known_username": "google"
+  },
+  "YouTubeChannel": {
+    "url": "https://www.youtube.com/c/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "channel-header",
+      "subscriber"
+    ],
+    "not_claimed_if": [
+      "404",
+      "This page isn't available"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "Google"
+  },
+  "RoamResearch": {
+    "url": "https://roamresearch.com/#/app/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "message",
+    "claimed_if": [
+      "page",
+      "block"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "roam"
+  },
+  "Cohost": {
+    "url": "https://cohost.org/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "posts"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "staff"
+  },
+  "GFGPractice": {
+    "url": "https://practice.geeksforgeeks.org/user-profile/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "problems_solved",
+      "score"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "geeksforgeeks"
+  },
+  "Twitch_Alt": {
+    "url": "https://m.twitch.tv/{}",
+    "tier": 3,
+    "category": "gaming",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "channel"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{4,25}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "ninja"
+  },
+  "ByjusCommunity": {
+    "url": "https://byjus.com/profile/{}",
+    "tier": 3,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Login",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "byjus"
+  },
+  "GitHubGist": {
+    "url": "https://gist.github.com/{}",
+    "tier": 2,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "gists",
+      "starred"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Not Found"
+    ],
+    "ambiguous_if": [
+      "Sign in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "torvalds"
+  },
+  "Giphy": {
+    "url": "https://giphy.com/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "gifs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "giphy"
+  },
+  "Imgur": {
+    "url": "https://imgur.com/user/{}",
+    "tier": 2,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "submissions"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Zoinks! You've taken a wrong turn"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "imgur"
+  },
+  "Wikipedia": {
+    "url": "https://en.wikipedia.org/wiki/User:{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "message",
+    "claimed_if": [
+      "User contributions",
+      "user page",
+      "User:"
+    ],
+    "not_claimed_if": [
+      "is not registered",
+      "invalid username"
+    ],
+    "ambiguous_if": [
+      "Create account",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_ ]{1,85}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Jimbo_Wales"
+  },
+  "StackExchange": {
+    "url": "https://stackexchange.com/users/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-card",
+      "reputation"
+    ],
+    "not_claimed_if": [
+      "404",
+      "User not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "1"
+  },
+  "Launchpad": {
+    "url": "https://launchpad.net/~{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "member-since",
+      "karma",
+      "maintained-projects"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Log in"
+    ],
+    "username_format": "^[a-z0-9][a-z0-9+.-]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "canonical"
+  },
+  "Trello": {
+    "url": "https://trello.com/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "member-header",
+      "boards"
+    ],
+    "not_claimed_if": [
+      "model not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "trello"
+  },
+  "Figma": {
+    "url": "https://www.figma.com/@{}",
+    "tier": 2,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "files"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "figma"
+  },
+  "Canva": {
+    "url": "https://www.canva.com/p/{}/",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "designs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "canva"
+  },
+  "TripAdvisor": {
+    "url": "https://www.tripadvisor.com/Profile/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "member_info",
+      "contributions"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "tripadvisor"
+  },
+  "Couchsurfing": {
+    "url": "https://www.couchsurfing.com/people/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "references",
+      "member"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "couchsurfing"
+  },
+  "Untappd": {
+    "url": "https://untappd.com/user/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "beers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "gregavola"
+  },
+  "Runkeeper": {
+    "url": "https://runkeeper.com/user/{}/profile",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "activities"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "runkeeper"
+  },
+  "Flipboard": {
+    "url": "https://flipboard.com/@{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "magazines"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "flipboard"
+  },
+  "Pocket": {
+    "url": "https://getpocket.com/@{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "saves"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "pocket"
+  },
+  "Mixedmartialartscom": {
+    "url": "https://www.sherdog.com/fighter/{}-1",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "fighter",
+      "record",
+      "bio"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9-]{3,60}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Anderson-Silva"
+  },
+  "HubPages": {
+    "url": "https://hubpages.com/@{}",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "hubs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "hubpages"
+  },
+  "Livejournal": {
+    "url": "https://{}.livejournal.com",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "journal",
+      "entries"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Unknown Journal",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{1,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "news"
+  },
+  "Xing": {
+    "url": "https://www.xing.com/profile/{}",
+    "tier": 3,
+    "category": "business",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "experience"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Sign up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "Thomas_Mueller123"
+  },
+  "Minds": {
+    "url": "https://www.minds.com/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "channel",
+      "subscribers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Channel not found"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,50}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "minds"
+  },
+  "Gab": {
+    "url": "https://gab.com/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "account",
+      "statuses"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "a"
+  },
+  "Signal": {
+    "url": "https://signal.me/#p/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "message",
+    "claimed_if": [
+      "signal",
+      "message"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "invalid"
+    ],
+    "ambiguous_if": [
+      "download"
+    ],
+    "username_format": "^\\+[0-9]{10,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "+12024561111"
+  },
+  "Mastodon_Tech": {
+    "url": "https://fosstodon.org/@{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "account__header",
+      "statuses_counter"
+    ],
+    "not_claimed_if": [
+      "The page you are looking for isn't here",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "fosstodon"
+  },
+  "Thingiverse": {
+    "url": "https://www.thingiverse.com/{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "designs"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "makerbot"
+  },
+  "Printables": {
+    "url": "https://www.printables.com/@{}",
+    "tier": 3,
+    "category": "creative",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "models"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Prusa"
+  },
+  "Zhihu": {
+    "url": "https://www.zhihu.com/people/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "answers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "zhihu"
+  },
+  "Weibo": {
+    "url": "https://weibo.com/u/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "followers"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "login",
+      "register"
+    ],
+    "username_format": "^[0-9]+$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "1087770692"
+  },
+  "MusicBrainz": {
+    "url": "https://musicbrainz.org/user/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user profile",
+      "edits",
+      "collections"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Log In",
+      "Create Account"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{2,64}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "Rob"
+  },
+  "Rate_Your_Music": {
+    "url": "https://rateyourmusic.com/~{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "ratings",
+      "reviews"
+    ],
+    "not_claimed_if": [
+      "not found",
+      "404"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{2,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "sharifi"
+  },
+  "Discogs": {
+    "url": "https://www.discogs.com/user/{}",
+    "tier": 3,
+    "category": "media",
+    "error_type": "status_code",
+    "claimed_if": [
+      "og:title",
+      "profile",
+      "collection"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "The page you requested was not found"
+    ],
+    "ambiguous_if": [
+      "Register",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{2,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "discogs"
+  },
+  "Aptoide": {
+    "url": "https://en.aptoide.com/user/{}",
+    "tier": 3,
+    "category": "other",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "aptoide"
+  },
+  "F_Droid": {
+    "url": "https://forum.f-droid.org/u/{}",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-card",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "Oops! That page doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log In"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,20}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "fdroid"
+  },
+  "XDA_Developers": {
+    "url": "https://xdaforums.com/m/{}.0/",
+    "tier": 3,
+    "category": "dev",
+    "error_type": "status_code",
+    "claimed_if": [
+      "member-header",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Log in",
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_.-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "xda"
+  },
+  "IMDB_User": {
+    "url": "https://www.imdb.com/user/{}/",
+    "tier": 3,
+    "category": "entertainment",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile",
+      "display-name"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^ur[0-9]{7,9}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "ur12345678"
+  },
+  "MouthShut": {
+    "url": "https://www.mouthshut.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-reviews"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "low",
+    "known_username": "mouthshut"
+  },
+  "Zomato_User": {
+    "url": "https://www.zomato.com/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile-info",
+      "foodie-stats"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Log in"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "zomato"
+  },
+  "Swiggy_Reviews": {
+    "url": "https://www.swiggy.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "swiggy"
+  },
+  "Glassdoor_India": {
+    "url": "https://www.glassdoor.co.in/member/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "glassdoor"
+  },
+  "AmbitionBox": {
+    "url": "https://www.ambitionbox.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "ambitionbox"
+  },
+  "Ello": {
+    "url": "https://ello.co/{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-profile",
+      "avatar"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "ello"
+  },
+  "Coursera_Profile": {
+    "url": "https://www.coursera.org/user/{}",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "learner"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up",
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9]{20,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "coursera"
+  },
+  "Udemy_Instructor": {
+    "url": "https://www.udemy.com/user/{}/",
+    "tier": 3,
+    "category": "education",
+    "error_type": "status_code",
+    "claimed_if": [
+      "instructor-profile",
+      "user-profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "udemy"
+  },
+  "Mirror_xyz": {
+    "url": "https://mirror.xyz/{}",
+    "tier": 3,
+    "category": "web3",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "entries"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Connect"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{3,42}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "mirror"
+  },
+  "Venmo": {
+    "url": "https://account.venmo.com/u/{}",
+    "tier": 3,
+    "category": "finance",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "venmo"
+  },
+  "CashApp": {
+    "url": "https://cash.app/${}",
+    "tier": 3,
+    "category": "finance",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "cash-app"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "cashapp"
+  },
+  "Koo_App": {
+    "url": "https://www.kooapp.com/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "koo-user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "kooapp"
+  },
+  "Josh_App": {
+    "url": "https://share.myjosh.in/profile/{}",
+    "tier": 1,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "medium",
+    "known_username": "joshapp"
+  },
+  "MPL_Gaming": {
+    "url": "https://www.mpl.live/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "player"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "mpl"
+  },
+  "Rentry": {
+    "url": "https://rentry.co/{}",
+    "tier": 3,
+    "category": "misc",
+    "error_type": "status_code",
+    "claimed_if": [
+      "entry",
+      "content"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "rentry"
+  },
+  "Mastodon_Social": {
+    "url": "https://mastodon.social/@{}",
+    "tier": 3,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "account__header"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found",
+      "The page you are looking for"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{1,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "mastodon"
+  },
+  "Myntra": {
+    "url": "https://www.myntra.com/gateway/v2/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "myntra"
+  },
+  "Ajio": {
+    "url": "https://www.ajio.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.2,
+    "antibot_risk": "high",
+    "known_username": "ajio"
+  },
+  "DeviantArt": {
+    "url": "https://www.deviantart.com/{}",
+    "tier": 3,
+    "category": "art",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "gallery"
+    ],
+    "not_claimed_if": [
+      "404",
+      "DeviantArt: 404"
+    ],
+    "ambiguous_if": [
+      "Join"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "deviantart"
+  },
+  "FurAffinity": {
+    "url": "https://www.furaffinity.net/user/{}/",
+    "tier": 3,
+    "category": "art",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "user not found"
+    ],
+    "ambiguous_if": [
+      "Register"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "furaffinity"
+  },
+  "Ghost_Blog": {
+    "url": "https://{}.ghost.io",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "blog",
+      "post",
+      "author"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "ghost"
+  },
+  "Glass_Photo": {
+    "url": "https://glass.photo/{}",
+    "tier": 3,
+    "category": "photography",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "photos"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "glass"
+  },
+  "AmazonSeller_IN": {
+    "url": "https://www.amazon.in/sp?seller={}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "seller-profile",
+      "storefront"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign In"
+    ],
+    "username_format": "^[A-Z0-9]{10,15}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "A1234567890"
+  },
+  "UrbanPro": {
+    "url": "https://www.urbanpro.com/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "tutor-profile",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "urbanpro"
+  },
+  "HealthifyMe": {
+    "url": "https://www.healthifyme.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "healthifyme"
+  },
+  "CultFit": {
+    "url": "https://www.cult.fit/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "member"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "cultfit"
+  },
+  "UrbanCompany": {
+    "url": "https://www.urbancompany.com/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "professional-profile",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "urbancompany"
+  },
+  "Loco_Gaming": {
+    "url": "https://loco.gg/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "streamer"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "loco"
+  },
+  "Rooter_Gaming": {
+    "url": "https://rooter.gg/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "gamer"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Download"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "rooter"
+  },
+  "KukuFM": {
+    "url": "https://kukufm.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "creator"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "kukufm"
+  },
+  "Pratilipi": {
+    "url": "https://www.pratilipi.com/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "author"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "pratilipi"
+  },
+  "Douyin_TikTok": {
+    "url": "https://www.tiktok.com/@{}",
+    "tier": 1,
+    "category": "social",
+    "error_type": "status_code",
+    "claimed_if": [
+      "user-page",
+      "profile"
+    ],
+    "not_claimed_if": [
+      "404",
+      "Couldn't find"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_.]{1,30}$",
+    "secondary_confirmation": true,
+    "delay_multiplier": 1.5,
+    "antibot_risk": "high",
+    "known_username": "tiktok"
+  },
+  "Byju": {
+    "url": "https://byjus.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "byjus"
+  },
+  "Testbook": {
+    "url": "https://testbook.com/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "testbook"
+  },
+  "Gradeup": {
+    "url": "https://gradeup.co/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "gradeup"
+  },
+  "Toppr": {
+    "url": "https://www.toppr.com/user/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "toppr"
+  },
+  "DoubtNut": {
+    "url": "https://www.doubtnut.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "student"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "doubtnut"
+  },
+  "WordPress_Com": {
+    "url": "https://{}.wordpress.com",
+    "tier": 3,
+    "category": "blog",
+    "error_type": "status_code",
+    "claimed_if": [
+      "blog",
+      "post",
+      "page"
+    ],
+    "not_claimed_if": [
+      "404",
+      "doesn't exist"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9-]{3,30}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 0.8,
+    "antibot_risk": "low",
+    "known_username": "wordpress"
+  },
+  "Quora_Hindi": {
+    "url": "https://hi.quora.com/profile/{}",
+    "tier": 2,
+    "category": "india",
+    "error_type": "status_code",
+    "claimed_if": [
+      "profile",
+      "user-info"
+    ],
+    "not_claimed_if": [
+      "404",
+      "not found"
+    ],
+    "ambiguous_if": [
+      "Sign Up"
+    ],
+    "username_format": "^[a-zA-Z0-9_-]{3,40}$",
+    "secondary_confirmation": false,
+    "delay_multiplier": 1.0,
+    "antibot_risk": "medium",
+    "known_username": "quora"
+  }
+}
