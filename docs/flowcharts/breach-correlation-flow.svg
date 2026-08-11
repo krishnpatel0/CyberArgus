@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1864" viewBox="0 0 1400 1864">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#454545"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="700.0" y="58" text-anchor="middle" font-family="Arial" font-size="38" font-weight="700" fill="#000">Breach Search and Graph Flow</text>
+<text x="700.0" y="91" text-anchor="middle" font-family="Arial" font-size="18" fill="#333">Exact lookup, cached correlation, bounded PII graph expansion, and provenance</text>
+<line x1="235" y1="112" x2="1165" y2="112" stroke="#999" stroke-width="2"/>
+<rect x="24" y="116" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="115" width="244" height="27" fill="#fff"/>
+<text x="58" y="134" font-family="Arial" font-size="15" font-weight="700" fill="#333">ACCESS AND QUERY CONTRACT</text>
+<rect x="24" y="560" width="1352" height="580" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="559" width="244" height="27" fill="#fff"/>
+<text x="58" y="578" font-family="Arial" font-size="15" font-weight="700" fill="#333">SEARCH EXECUTION AND CACHE</text>
+<rect x="24" y="1152" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="1151" width="244" height="27" fill="#fff"/>
+<text x="58" y="1170" font-family="Arial" font-size="15" font-weight="700" fill="#333">BOUNDED RELATIONSHIP GRAPH</text>
+<rect x="24" y="1596" width="1352" height="136" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="1595" width="244" height="27" fill="#fff"/>
+<text x="58" y="1614" font-family="Arial" font-size="15" font-weight="700" fill="#333">EVIDENCE OUTPUTS</text>
+<path d="M557.0,220.0 C557.0,254.0 557.0,254.0 557.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,220.0 C843.0,254.0 843.0,254.0 843.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,368.0 C557.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,368.0 C843.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 414.0,550.0 414.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 700.0,550.0 700.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 986.0,550.0 986.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,664.0 C414.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,664.0 C700.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,664.0 C986.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,852.0 C700.0,886.0 414.0,846.0 414.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,852.0 C700.0,886.0 700.0,846.0 700.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,852.0 C700.0,886.0 986.0,846.0 986.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,960.0 C414.0,994.0 557.0,994.0 557.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,960.0 C700.0,994.0 557.0,994.0 557.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,960.0 C986.0,994.0 843.0,994.0 843.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,1108.0 C557.0,1142.0 557.0,1142.0 557.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,1108.0 C843.0,1142.0 843.0,1142.0 843.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,1256.0 C557.0,1290.0 414.0,1290.0 414.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,1256.0 C843.0,1290.0 986.0,1290.0 986.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1404.0 C414.0,1438.0 414.0,1438.0 414.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1444.0 C700.0,1478.0 700.0,1438.0 700.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1444.0 C986.0,1478.0 986.0,1438.0 986.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1552.0 C414.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1552.0 C700.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1552.0 C986.0,1586.0 843.0,1586.0 843.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M973.0,180.0 L1366,180.0 L1366,496.0 L784.0,496.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1236.5" y="470.0" width="137.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="486.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Dataset access rules</text>
+<path d="M616.0,496.0 L34,496.0 L34,180.0 L427.0,180.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="9.5" y="154.0" width="171.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="95.0" y="170.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Rejected: correct the query</text>
+<path d="M986.0,960.0 C986.0,994.0 557.0,994.0 557.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="559.0" y="994.6" width="166.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="642.0" y="1010.6" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Cache hit: reuse response</text>
+<path d="M700.0,1444.0 C700.0,1478.0 700.0,1438.0 700.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="628.0" y="1446.5" width="144.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="700.0" y="1462.5" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Yes: keep 10 samples</text>
+<path d="M700.0,1444.0 C700.0,1478.0 414.0,1438.0 414.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="395.7" y="1446.5" width="150.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="470.7" y="1462.5" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">No: continue expansion</text>
+<path d="M986.0,1444.0 C986.0,1478.0 986.0,1438.0 986.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="923.5" y="1446.5" width="125.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="986.0" y="1462.5" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Limit reached: stop</text>
+<path d="M687.0,1660.0 L1366,1660.0 L1366,792.0 L784.0,792.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1222.0" y="766.0" width="166.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="782.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Store completed response</text>
+<rect x="427.0" y="140" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="186.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Authorized Analyst</text>
+<rect x="713.0" y="140" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="843.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Dataset Policy</text>
+<text x="843.0" y="196.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">RBAC · Audit</text>
+<rect x="427.0" y="288" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Search Seed</text>
+<text x="557.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Email · Phone · Name</text>
+<rect x="713.0" y="288" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Field Filters</text>
+<text x="843.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Limit · Offset</text>
+<polygon points="700.0,436 784.0,496.0 700.0,556.0 616.0,496.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="493.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Valid Input</text>
+<text x="700.0" y="511.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">and Field?</text>
+<rect x="284.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">PII Type</text>
+<text x="414.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Detection</text>
+<rect x="570.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Normalize Email /</text>
+<text x="700.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Phone / Name</text>
+<rect x="856.0" y="584" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="986.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Controlled Field</text>
+<text x="986.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Catalog</text>
+<polygon points="700.0,732 784.0,792.0 700.0,852.0 616.0,792.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="789.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Redis Cache</text>
+<text x="700.0" y="807.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Hit?</text>
+<rect x="284.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Parameterized</text>
+<text x="414.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">ClickHouse Search</text>
+<rect x="570.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Elasticsearch</text>
+<text x="700.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Correlation Pivots</text>
+<rect x="856.0" y="880" width="260.0" height="80" rx="18" fill="#fff" stroke="#111" stroke-width="3"/>
+<line x1="866.0" y1="895" x2="1106.0" y2="895" stroke="#777" stroke-width="2"/>
+<text x="986.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Cached JSON</text>
+<text x="986.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Response</text>
+<rect x="427.0" y="1028" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Deduplicated Records</text>
+<text x="557.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Source Provenance</text>
+<rect x="713.0" y="1028" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Count + Pagination</text>
+<text x="843.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Metadata</text>
+<rect x="427.0" y="1176" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="1202.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Extract PII Entities</text>
+<text x="557.0" y="1222.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Email · Phone · Name ·</text>
+<text x="557.0" y="1242.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Address</text>
+<rect x="713.0" y="1176" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="1212.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Stable SHA-256</text>
+<text x="843.0" y="1232.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Node / Edge IDs</text>
+<rect x="284.0" y="1324" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1360.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Bounded BFS Queue</text>
+<text x="414.0" y="1380.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Batch Size ≤ 10</text>
+<polygon points="700.0,1324 784.0,1384.0 700.0,1444.0 616.0,1384.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="1363.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Common</text>
+<text x="700.0" y="1381.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Value</text>
+<text x="700.0" y="1399.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">&gt; 200</text>
+<text x="700.0" y="1417.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Records?</text>
+<polygon points="986.0,1324 1070.0,1384.0 986.0,1444.0 902.0,1384.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="986.0" y="1372.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Graph Caps</text>
+<text x="986.0" y="1390.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">500 Records /</text>
+<text x="986.0" y="1408.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">300 Entities</text>
+<rect x="284.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Expand First-Degree</text>
+<text x="414.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Records Only</text>
+<rect x="570.0" y="1472" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="700.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Retain 10 Samples</text>
+<text x="700.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Mark Warning</text>
+<rect x="856.0" y="1472" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="986.0" y="1518.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Stop + Cap Reason</text>
+<rect x="427.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Search Response</text>
+<text x="557.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">and Connection Graph</text>
+<rect x="713.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="843.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Analyst Review</text>
+<text x="843.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">No Identity Assumption</text>
+<text x="700.0" y="1835" text-anchor="middle" font-family="Arial" font-size="13" fill="#333">Solid arrow: primary processing flow    |    Dashed labeled arrow: policy, exception, or feedback path    |    Diamond: decision</text>
+</svg>

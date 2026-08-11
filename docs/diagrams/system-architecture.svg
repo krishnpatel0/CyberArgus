@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img" aria-labelledby="title desc">
+  <title id="title">Argus Unified system architecture</title>
+  <desc id="desc">Analyst traffic enters the unified backend, which coordinates domain modules, private application services, workers, and isolated datastores.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111d"/><stop offset="1" stop-color="#111c29"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#000" flood-opacity=".28"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#85a7b8"/></marker>
+    <style>
+      .h{font:700 34px Inter,Segoe UI,sans-serif;fill:#f7fafc}.sub{font:16px Inter,Segoe UI,sans-serif;fill:#9fb2c3}.lane{fill:#0d1926;stroke:#263a49;stroke-width:1.5}.box{fill:#142535;stroke:#365064;stroke-width:2;filter:url(#shadow)}.module{fill:#122e37;stroke:#32c7be;stroke-width:2}.service{fill:#2a2021;stroke:#ef725e;stroke-width:2}.store{fill:#1c2533;stroke:#8097a7;stroke-width:2}.t{font:700 18px Inter,Segoe UI,sans-serif;fill:#f7fafc}.s{font:14px Inter,Segoe UI,sans-serif;fill:#b9c8d3}.tag{font:700 12px Inter,Segoe UI,sans-serif;fill:#07111d}.line{fill:none;stroke:#85a7b8;stroke-width:2.3;marker-end:url(#arrow)}.dash{fill:none;stroke:#607789;stroke-width:2;stroke-dasharray:8 8;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="920" fill="url(#bg)"/>
+  <text x="80" y="72" class="h">ARGUS UNIFIED — SYSTEM ARCHITECTURE</text>
+  <text x="80" y="103" class="sub">One product boundary • independently supervised roles • isolated persistence</text>
+
+  <rect x="60" y="138" width="1480" height="132" rx="18" class="lane"/>
+  <text x="86" y="170" class="sub">ENTRY &amp; PRODUCT BOUNDARY</text>
+  <rect x="105" y="187" width="250" height="58" rx="13" class="box"/>
+  <text x="230" y="213" text-anchor="middle" class="t">Analyst browser</text><text x="230" y="234" text-anchor="middle" class="s">127.0.0.1:7777 / reviewed ingress</text>
+  <rect x="555" y="175" width="490" height="82" rx="15" class="box"/>
+  <text x="800" y="207" text-anchor="middle" class="t">Unified Argus backend</text><text x="800" y="231" text-anchor="middle" class="s">Auth • role policy • API • dashboard • modules workspace</text>
+  <path d="M355 216H545" class="line"/>
+  <rect x="1240" y="187" width="235" height="58" rx="13" class="box"/>
+  <text x="1358" y="213" text-anchor="middle" class="t">Reports / STIX / alerts</text><text x="1358" y="234" text-anchor="middle" class="s">Operator-controlled outputs</text>
+  <path d="M1045 216H1230" class="line"/>
+
+  <rect x="60" y="300" width="1480" height="242" rx="18" class="lane"/>
+  <text x="86" y="334" class="sub">DOMAIN MODULES — OWNED CHANGE BOUNDARIES</text>
+  <g><rect x="95" y="367" width="260" height="126" rx="16" class="module"/><text x="225" y="405" text-anchor="middle" class="t">Core CTI</text><text x="225" y="432" text-anchor="middle" class="s">Collectors • correlation</text><text x="225" y="454" text-anchor="middle" class="s">findings • risk • campaigns</text><rect x="173" y="469" width="104" height="20" rx="10" fill="#32c7be"/><text x="225" y="484" text-anchor="middle" class="tag">arguswatch</text></g>
+  <g><rect x="385" y="367" width="260" height="126" rx="16" class="module"/><text x="515" y="405" text-anchor="middle" class="t">Breach intelligence</text><text x="515" y="432" text-anchor="middle" class="s">Search • cache • pivots</text><text x="515" y="454" text-anchor="middle" class="s">bounded connection graph</text><rect x="457" y="469" width="116" height="20" rx="10" fill="#32c7be"/><text x="515" y="484" text-anchor="middle" class="tag">breach</text></g>
+  <g><rect x="675" y="367" width="260" height="126" rx="16" class="module"/><text x="805" y="405" text-anchor="middle" class="t">OSINT investigation</text><text x="805" y="432" text-anchor="middle" class="s">Evidence tiers • jobs</text><text x="805" y="454" text-anchor="middle" class="s">correlation • export</text><rect x="747" y="469" width="116" height="20" rx="10" fill="#32c7be"/><text x="805" y="484" text-anchor="middle" class="tag">osint</text></g>
+  <g><rect x="965" y="367" width="260" height="126" rx="16" class="module"/><text x="1095" y="405" text-anchor="middle" class="t">Image intelligence</text><text x="1095" y="432" text-anchor="middle" class="s">Metadata • OCR • vision</text><text x="1095" y="454" text-anchor="middle" class="s">reverse search • geolocation</text><rect x="1037" y="469" width="116" height="20" rx="10" fill="#32c7be"/><text x="1095" y="484" text-anchor="middle" class="tag">image_intel</text></g>
+  <g><rect x="1255" y="367" width="250" height="126" rx="16" class="module"/><text x="1380" y="405" text-anchor="middle" class="t">Telegram intelligence</text><text x="1380" y="432" text-anchor="middle" class="s">Classification • IOCs</text><text x="1380" y="454" text-anchor="middle" class="s">alerts • graph • STIX</text><rect x="1322" y="469" width="116" height="20" rx="10" fill="#32c7be"/><text x="1380" y="484" text-anchor="middle" class="tag">telegram</text></g>
+  <path d="M800 257V346H225V357M800 346H515V357M800 346H805V357M800 346H1095V357M800 346H1380V357" class="line"/>
+
+  <rect x="60" y="572" width="1480" height="140" rx="18" class="lane"/>
+  <text x="86" y="605" class="sub">PRIVATE APPLICATION ROLES — SAME ARGUS IMAGE</text>
+  <g><rect x="100" y="630" width="260" height="57" rx="13" class="service"/><text x="230" y="654" text-anchor="middle" class="t">Celery worker + beat</text><text x="230" y="676" text-anchor="middle" class="s">Background and scheduled tasks</text></g>
+  <g><rect x="400" y="630" width="260" height="57" rx="13" class="service"/><text x="530" y="654" text-anchor="middle" class="t">Breach search</text><text x="530" y="676" text-anchor="middle" class="s">Internal API key boundary</text></g>
+  <g><rect x="700" y="630" width="260" height="57" rx="13" class="service"/><text x="830" y="654" text-anchor="middle" class="t">Intelligence proxy</text><text x="830" y="676" text-anchor="middle" class="s">Provider access boundary</text></g>
+  <g><rect x="1000" y="630" width="260" height="57" rx="13" class="service"/><text x="1130" y="654" text-anchor="middle" class="t">Recon engine</text><text x="1130" y="676" text-anchor="middle" class="s">Customer scope gate</text></g>
+  <g><rect x="1300" y="630" width="190" height="57" rx="13" class="service"/><text x="1395" y="654" text-anchor="middle" class="t">Breach ingest</text><text x="1395" y="676" text-anchor="middle" class="s">Explicit tools profile</text></g>
+  <path d="M800 542V558H230V620M800 558H530V620M800 558H830V620M800 558H1130V620M800 558H1395V620" class="dash"/>
+
+  <rect x="60" y="742" width="1480" height="130" rx="18" class="lane"/>
+  <text x="86" y="775" class="sub">PERSISTENCE — NO DEFAULT HOST-PUBLISHED PORTS</text>
+  <g><rect x="110" y="803" width="240" height="46" rx="23" class="store"/><text x="230" y="832" text-anchor="middle" class="t">PostgreSQL</text></g>
+  <g><rect x="390" y="803" width="210" height="46" rx="23" class="store"/><text x="495" y="832" text-anchor="middle" class="t">Redis</text></g>
+  <g><rect x="640" y="803" width="220" height="46" rx="23" class="store"/><text x="750" y="832" text-anchor="middle" class="t">ClickHouse</text></g>
+  <g><rect x="900" y="803" width="230" height="46" rx="23" class="store"/><text x="1015" y="832" text-anchor="middle" class="t">Elasticsearch</text></g>
+  <g><rect x="1170" y="803" width="310" height="46" rx="23" class="store"/><text x="1325" y="832" text-anchor="middle" class="t">Reports / sessions / images</text></g>
+  <path d="M230 712V793M530 712V760H495V793M530 712V760H750V793M530 712V760H1015V793M230 712V775H1325V793" class="dash"/>
+</svg>

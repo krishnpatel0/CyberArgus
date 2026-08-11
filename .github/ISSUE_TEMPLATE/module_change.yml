@@ -1,0 +1,33 @@
+name: Module change proposal
+description: Coordinate a change that crosses module or service boundaries.
+title: "[Module change]: "
+labels: ["architecture", "needs-triage"]
+body:
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Affected boundaries
+      description: List backend modules, frontend modules, services, datastores, and public routes.
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Contract change
+      description: Describe request/response, event, persistence, or configuration changes.
+    validations:
+      required: true
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration and rollback
+      description: Explain compatibility, deployment order, data migration, and rollback.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: Identify automated tests and safe runtime checks.
+    validations:
+      required: true

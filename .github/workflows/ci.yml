@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AUTH_DISABLED: "true"
+  POSTGRES_PASSWORD: test-only-postgres-password
+  REDIS_PASSWORD: test-only-redis-password
+  CLICKHOUSE_PASSWORD: test-only-clickhouse-password
+  JWT_SECRET_KEY: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  ADMIN_PASSWORD: test-only-admin-password
+  BREACH_EMAIL_HASH_SALT: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  BREACH_SEARCH_API_KEY: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools==84.0.0
+          python -m pip install --no-build-isolation -r backend/requirements-dev.txt
+
+      - name: Backend unit and stateless tests
+        run: >-
+          python -m pytest backend/tests -q
+          --ignore=backend/tests/test_api_endpoints.py
+          --ignore=backend/tests/test_integration.py
+
+      - name: Application smoke tests
+        run: >-
+          python -m pytest backend/tests/test_integration.py -q
+          -k "TestAppBoots or TestCORSNotWildcard or TestInputValidation or TestAuthFlows"
+
+      - name: Python dependency audit
+        run: python -m pip_audit -r backend/requirements.txt --timeout 60
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: modules-ui/package-lock.json
+
+      - name: Modules UI checks
+        working-directory: modules-ui
+        run: |
+          npm ci
+          npm run lint
+          npm run build
+          npm audit --audit-level=low
+
+      - name: Docker Compose validation
+        run: docker compose --project-directory . -f docker/docker-compose.yml config --quiet
+
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the single Argus image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: false
+          tags: argus-unified:ci
+          build-args: |
+            VCS_URL=https://github.com/${{ github.repository }}
+            VCS_REVISION=${{ github.sha }}
+            VERSION=ci-${{ github.run_number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

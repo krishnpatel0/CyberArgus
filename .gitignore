@@ -1,0 +1,68 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.session
+telegram_sessions/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+*.egg
+*.whl
+.venv/
+venv/
+.test-venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+
+# JavaScript
+node_modules/
+modules-ui/dist/
+npm-debug.log*
+
+# Runtime data and generated output
+data/
+reports/
+output/
+tmp/
+.tmp/
+.tmp-*/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+ollama_data/
+prometheus_data/
+pgdata/
+docs/renders/
+
+# Local automation and browser artifacts
+.playwright-cli/
+.codex_qa/
+
+# IDE and operating system
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local archives
+*.zip
+*.tar
+*.tar.gz

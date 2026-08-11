@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1100" viewBox="0 0 1400 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Argus Unified architecture flow</title>
+  <desc id="desc">A monochrome architecture flow with a central product path, curved module branches, shared processing, security controls, validation, and operator outputs.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#b8b8b8"/>
+    </marker>
+    <style>
+      .heading{font:700 30px Arial,Helvetica,sans-serif;fill:#fff;letter-spacing:.4px}
+      .subtitle{font:15px Arial,Helvetica,sans-serif;fill:#aaa}
+      .box{fill:#343434;stroke:#707070;stroke-width:1.2}
+      .key{fill:#414141;stroke:#b7b7b7;stroke-width:1.4}
+      .label{font:700 14px Arial,Helvetica,sans-serif;fill:#f5f5f5}
+      .detail{font:11.5px Arial,Helvetica,sans-serif;fill:#c8c8c8}
+      .tiny{font:10.5px Arial,Helvetica,sans-serif;fill:#a9a9a9}
+      .flow{fill:none;stroke:#b8b8b8;stroke-width:1.35;marker-end:url(#arrow)}
+      .soft{fill:none;stroke:#858585;stroke-width:1.15;marker-end:url(#arrow)}
+      .policy{fill:none;stroke:#696969;stroke-width:1.1;stroke-dasharray:5 5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect width="1400" height="1100" fill="#111"/>
+  <rect x="24" y="24" width="1352" height="1052" fill="none" stroke="#3a3a3a"/>
+  <text x="65" y="69" class="heading">ARGUS UNIFIED ARCHITECTURE FLOW</text>
+  <text x="65" y="94" class="subtitle">Product modules, guarded execution, evidence processing, and analyst outputs</text>
+
+  <!-- Main product entry -->
+  <rect x="585" y="122" width="230" height="48" class="box"/>
+  <text x="700" y="143" text-anchor="middle" class="label">Analyst / Operator</text>
+  <text x="700" y="159" text-anchor="middle" class="detail">Browser or approved API client</text>
+
+  <path d="M700 170 C700 190 700 195 700 214" class="flow"/>
+  <rect x="520" y="216" width="360" height="58" class="key"/>
+  <text x="700" y="240" text-anchor="middle" class="label">Argus Unified Product Shell</text>
+  <text x="700" y="259" text-anchor="middle" class="detail">Dashboard • modules workspace • unified API</text>
+
+  <path d="M700 274 C700 294 700 302 700 319" class="flow"/>
+  <polygon points="700,320 804,365 700,410 596,365" class="key"/>
+  <text x="700" y="361" text-anchor="middle" class="label">Access permitted?</text>
+  <text x="700" y="378" text-anchor="middle" class="detail">Identity • role • scope</text>
+
+  <!-- Rejection and policy side loop -->
+  <path d="M596 365 C500 365 477 330 400 330" class="soft"/>
+  <text x="516" y="351" class="tiny">No</text>
+  <rect x="230" y="307" width="170" height="47" class="box"/>
+  <text x="315" y="328" text-anchor="middle" class="label">Reject + audit</text>
+  <text x="315" y="344" text-anchor="middle" class="detail">No module execution</text>
+
+  <rect x="1050" y="140" width="255" height="62" class="box"/>
+  <text x="1177" y="163" text-anchor="middle" class="label">Security &amp; Scope Policy</text>
+  <text x="1177" y="181" text-anchor="middle" class="detail">Rate limits • source allowlists</text>
+  <text x="1177" y="196" text-anchor="middle" class="detail">timeouts • retention • audit</text>
+  <path d="M1050 171 C930 171 900 294 798 345" class="policy"/>
+  <path d="M1305 171 C1350 171 1342 774 1170 806" class="policy"/>
+
+  <!-- Orchestrator -->
+  <text x="724" y="430" class="tiny">Yes</text>
+  <path d="M700 410 C700 430 700 438 700 454" class="flow"/>
+  <rect x="520" y="456" width="360" height="54" class="key"/>
+  <text x="700" y="478" text-anchor="middle" class="label">Module Router + Job Orchestrator</text>
+  <text x="700" y="496" text-anchor="middle" class="detail">Synchronous request or bounded background job</text>
+
+  <!-- Curved module fan-out -->
+  <path d="M700 510 C700 542 190 518 190 570" class="flow"/>
+  <path d="M700 510 C700 540 445 532 445 570" class="flow"/>
+  <path d="M700 510 C700 535 700 542 700 570" class="flow"/>
+  <path d="M700 510 C700 540 955 532 955 570" class="flow"/>
+  <path d="M700 510 C700 542 1210 518 1210 570" class="flow"/>
+
+  <rect x="90" y="572" width="200" height="64" class="box"/>
+  <text x="190" y="597" text-anchor="middle" class="label">Core CTI</text>
+  <text x="190" y="616" text-anchor="middle" class="detail">Collect • correlate • findings</text>
+
+  <rect x="345" y="572" width="200" height="64" class="box"/>
+  <text x="445" y="597" text-anchor="middle" class="label">OSINT</text>
+  <text x="445" y="616" text-anchor="middle" class="detail">Evidence-led investigation</text>
+
+  <rect x="600" y="572" width="200" height="64" class="box"/>
+  <text x="700" y="597" text-anchor="middle" class="label">Breach Intelligence</text>
+  <text x="700" y="616" text-anchor="middle" class="detail">Search • pivots • graph</text>
+
+  <rect x="855" y="572" width="200" height="64" class="box"/>
+  <text x="955" y="597" text-anchor="middle" class="label">Image Intelligence</text>
+  <text x="955" y="616" text-anchor="middle" class="detail">Metadata • OCR • location</text>
+
+  <rect x="1110" y="572" width="200" height="64" class="box"/>
+  <text x="1210" y="597" text-anchor="middle" class="label">Telegram Intel</text>
+  <text x="1210" y="616" text-anchor="middle" class="detail">Messages • IOCs • alerts</text>
+
+  <!-- Supporting service paths -->
+  <rect x="75" y="690" width="220" height="52" class="box"/>
+  <text x="185" y="712" text-anchor="middle" class="label">Provider Gateway</text>
+  <text x="185" y="729" text-anchor="middle" class="detail">Configured external sources</text>
+  <path d="M190 636 C190 658 185 668 185 690" class="soft"/>
+
+  <rect x="1105" y="690" width="220" height="52" class="box"/>
+  <text x="1215" y="712" text-anchor="middle" class="label">Workers + Scheduler</text>
+  <text x="1215" y="729" text-anchor="middle" class="detail">Queued and recurring execution</text>
+  <path d="M1210 636 C1210 658 1215 668 1215 690" class="soft"/>
+
+  <!-- Curved convergence -->
+  <path d="M190 636 C190 770 560 702 605 770" class="flow"/>
+  <path d="M445 636 C445 716 585 708 625 770" class="flow"/>
+  <path d="M700 636 C700 684 700 720 700 770" class="flow"/>
+  <path d="M955 636 C955 716 815 708 775 770" class="flow"/>
+  <path d="M1210 636 C1210 770 840 702 795 770" class="flow"/>
+  <path d="M295 716 C390 716 470 770 565 790" class="soft"/>
+  <path d="M1105 716 C1010 716 930 770 835 790" class="soft"/>
+
+  <rect x="535" y="772" width="330" height="62" class="key"/>
+  <text x="700" y="797" text-anchor="middle" class="label">Evidence &amp; Intelligence Core</text>
+  <text x="700" y="816" text-anchor="middle" class="detail">Normalize • provenance • correlate • score</text>
+
+  <!-- Data stores as side dependencies -->
+  <rect x="105" y="814" width="205" height="48" class="box"/>
+  <text x="208" y="835" text-anchor="middle" class="label">Operational State</text>
+  <text x="208" y="851" text-anchor="middle" class="detail">PostgreSQL • Redis</text>
+  <path d="M535 803 C445 803 405 838 310 838" class="soft"/>
+
+  <rect x="1090" y="814" width="205" height="48" class="box"/>
+  <text x="1192" y="835" text-anchor="middle" class="label">Evidence Stores</text>
+  <text x="1192" y="851" text-anchor="middle" class="detail">Search indexes • volumes</text>
+  <path d="M865 803 C955 803 995 838 1090 838" class="soft"/>
+
+  <!-- Validation and outputs -->
+  <path d="M700 834 C700 854 700 862 700 879" class="flow"/>
+  <polygon points="700,880 802,921 700,962 598,921" class="key"/>
+  <text x="700" y="917" text-anchor="middle" class="label">Actionable evidence?</text>
+  <text x="700" y="934" text-anchor="middle" class="detail">Confidence + validation</text>
+
+  <path d="M598 921 C510 921 485 960 410 960" class="soft"/>
+  <text x="524" y="909" class="tiny">No</text>
+  <rect x="240" y="938" width="170" height="45" class="box"/>
+  <text x="325" y="965" text-anchor="middle" class="label">Retain / review</text>
+
+  <text x="718" y="981" class="tiny">Yes</text>
+  <path d="M700 962 C700 982 700 988 700 1002" class="flow"/>
+  <rect x="480" y="1004" width="440" height="50" class="key"/>
+  <text x="700" y="1026" text-anchor="middle" class="label">Dashboard • Findings • Reports • STIX • Alerts</text>
+  <text x="700" y="1043" text-anchor="middle" class="detail">Auditable analyst outputs</text>
+
+  <!-- Long policy feedback line similar to the reference composition -->
+  <path d="M920 1029 C1050 1029 1040 935 1192 862" class="policy"/>
+  <path d="M480 1029 C365 1029 370 895 208 862" class="policy"/>
+</svg>

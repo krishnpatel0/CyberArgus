@@ -1,0 +1,34 @@
+core-platform:
+  - changed-files:
+      - any-glob-to-any-file: "backend/arguswatch/**"
+breach-intelligence:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/modules/breach/**"
+          - "modules-ui/src/modules/breach/**"
+osint:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/modules/osint/**"
+          - "modules-ui/src/modules/osint/**"
+image-intelligence:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "backend/modules/image_intel/**"
+          - "modules-ui/src/modules/image-intelligence/**"
+telegram-intelligence:
+  - changed-files:
+      - any-glob-to-any-file: "backend/modules/telegram_intel/**"
+frontend:
+  - changed-files:
+      - any-glob-to-any-file: "modules-ui/**"
+deployment:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docker/**"
+          - "setup/**"
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "docs/**"

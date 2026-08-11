@@ -1,0 +1,47 @@
+name: Feature request
+description: Propose an implemented-scope improvement for one or more Argus modules.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: Primary module
+      options:
+        - Core CTI platform
+        - Breach intelligence
+        - OSINT investigation
+        - Image intelligence
+        - Telegram intelligence
+        - Intelligence proxy
+        - Recon engine
+        - Setup or Docker
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the concrete operator or developer problem, not only the proposed UI.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: State observable acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: Security, scope, and data impact
+      description: Explain new network access, sensitive data, credentials, storage, or permissions.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Note simpler options or existing module capabilities that were evaluated.

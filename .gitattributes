@@ -1,0 +1,20 @@
+* text=auto
+
+*.py text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sql text eol=lf
+*.md text eol=lf
+docker/Dockerfile text eol=lf
+docker/Dockerfile.dockerignore text eol=lf
+
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1864" viewBox="0 0 1400 1864">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#454545"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="700.0" y="58" text-anchor="middle" font-family="Arial" font-size="38" font-weight="700" fill="#000">PII, IOC and STIX Flow</text>
+<text x="700.0" y="91" text-anchor="middle" font-family="Arial" font-size="18" fill="#333">Ordered extraction, cautious attribution, customer context, and interoperable output</text>
+<line x1="235" y1="112" x2="1165" y2="112" stroke="#999" stroke-width="2"/>
+<rect x="24" y="116" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="115" width="244" height="27" fill="#fff"/>
+<text x="58" y="134" font-family="Arial" font-size="15" font-weight="700" fill="#333">EVIDENCE INTAKE AND VALIDATION</text>
+<rect x="24" y="560" width="1352" height="284" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="559" width="244" height="27" fill="#fff"/>
+<text x="58" y="578" font-family="Arial" font-size="15" font-weight="700" fill="#333">IOC AND PII EXTRACTION</text>
+<rect x="24" y="856" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="855" width="244" height="27" fill="#fff"/>
+<text x="58" y="874" font-family="Arial" font-size="15" font-weight="700" fill="#333">CAUTIOUS CUSTOMER CORRELATION</text>
+<rect x="24" y="1300" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="1299" width="244" height="27" fill="#fff"/>
+<text x="58" y="1318" font-family="Arial" font-size="15" font-weight="700" fill="#333">STIX INTEROPERABILITY AND REVIEW</text>
+<path d="M557.0,220.0 C557.0,254.0 557.0,254.0 557.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,220.0 C843.0,254.0 843.0,254.0 843.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,368.0 C557.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,368.0 C843.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 271.0,550.0 271.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 557.0,550.0 557.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 843.0,550.0 843.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 1129.0,550.0 1129.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M271.0,664.0 C271.0,698.0 414.0,698.0 414.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,664.0 C557.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,664.0 C843.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1129.0,664.0 C1129.0,698.0 986.0,698.0 986.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,812.0 C414.0,846.0 700.0,846.0 700.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,812.0 C700.0,846.0 700.0,846.0 700.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,812.0 C986.0,846.0 700.0,846.0 700.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1000.0 C700.0,1034.0 176.0,994.0 176.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1000.0 C700.0,1034.0 438.0,994.0 438.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1000.0 C700.0,1034.0 700.0,994.0 700.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1000.0 C700.0,1034.0 962.0,994.0 962.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1000.0 C700.0,1034.0 1224.0,994.0 1224.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M176.0,1108.0 C176.0,1142.0 414.0,1142.0 414.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M438.0,1108.0 C438.0,1142.0 414.0,1142.0 414.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1108.0 C700.0,1142.0 700.0,1142.0 700.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M962.0,1108.0 C962.0,1142.0 986.0,1142.0 986.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1224.0,1108.0 C1224.0,1142.0 986.0,1142.0 986.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1256.0 C414.0,1290.0 700.0,1290.0 700.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1256.0 C700.0,1290.0 700.0,1290.0 700.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1256.0 C986.0,1290.0 700.0,1290.0 700.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1444.0 C700.0,1478.0 414.0,1438.0 414.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1444.0 C700.0,1478.0 700.0,1438.0 700.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1444.0 C700.0,1478.0 986.0,1438.0 986.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1552.0 C414.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1552.0 C700.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1552.0 C986.0,1586.0 843.0,1586.0 843.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M973.0,180.0 L1366,180.0 L1366,496.0 L784.0,496.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1240.5" y="470.0" width="129.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="486.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Sensitive-data rules</text>
+<path d="M616.0,496.0 L34,496.0 L34,180.0 L427.0,180.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="36.0" y="154.0" width="118.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="95.0" y="170.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Rejected as noise</text>
+<path d="M700.0,1000.0 C700.0,1084.5 986.0,1091.5 986.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="860.3" y="1107.9" width="138.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="929.3" y="1123.9" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">No: global signal only</text>
+<path d="M700.0,1000.0 C700.0,1034.0 176.0,994.0 176.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="195.9" y="1002.5" width="168.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="279.9" y="1018.5" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Yes: test customer assets</text>
+<path d="M830.0,1216.0 L1366,1216.0 L1366,1660.0 L973.0,1660.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1219.0" y="1634.0" width="172.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="1650.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Review at lower confidence</text>
+<path d="M973.0,1660.0 L1366,1660.0 L1366,328.0 L973.0,328.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1223.5" y="302.0" width="163.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="318.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Customer-asset feedback</text>
+<path d="M427.0,1660.0 L34,1660.0 L34,328.0 L427.0,328.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="15.0" y="302.0" width="160.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="95.0" y="318.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">STIX validation feedback</text>
+<rect x="427.0" y="140" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Feed / Message /</text>
+<text x="557.0" y="196.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Breach Evidence</text>
+<rect x="713.0" y="140" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="843.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Sensitive Data</text>
+<text x="843.0" y="196.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Access Policy</text>
+<rect x="427.0" y="288" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Ordered Pattern Scan</text>
+<text x="557.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Specific → Generic</text>
+<rect x="713.0" y="288" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Customer Assets</text>
+<text x="843.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">and Tenant Context</text>
+<polygon points="700.0,436 784.0,496.0 700.0,556.0 616.0,496.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="475.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Candidate</text>
+<text x="700.0" y="493.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Passes</text>
+<text x="700.0" y="511.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Noise</text>
+<text x="700.0" y="529.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Guards?</text>
+<rect x="141.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="271.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Credentials / Keys</text>
+<text x="271.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Tokens / Sessions</text>
+<rect x="427.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Network / Domain</text>
+<text x="557.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Email / Hash</text>
+<rect x="713.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Financial / Identity</text>
+<text x="843.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">PII Shapes</text>
+<rect x="999.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="1129.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Actor / Exfil /</text>
+<text x="1129.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">CVE / Crypto</text>
+<rect x="284.0" y="732" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="768.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Normalize Value</text>
+<text x="414.0" y="788.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">and Context</text>
+<rect x="570.0" y="732" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="768.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Deduplicate by</text>
+<text x="700.0" y="788.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Category · Type · Value</text>
+<rect x="856.0" y="732" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="986.0" y="768.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Base Confidence +</text>
+<text x="986.0" y="788.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Domain Context Boost</text>
+<polygon points="700.0,880 784.0,940.0 700.0,1000.0 616.0,940.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="928.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Attributable</text>
+<text x="700.0" y="946.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">to</text>
+<text x="700.0" y="964.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Customer?</text>
+<rect x="58.0" y="1028" width="236.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="176.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Exact IP / CIDR</text>
+<text x="176.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Membership</text>
+<rect x="320.0" y="1028" width="236.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="438.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Exact / Subdomain</text>
+<text x="438.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Boundary</text>
+<rect x="582.0" y="1028" width="236.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Email Domain /</text>
+<text x="700.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Executive Match</text>
+<rect x="844.0" y="1028" width="236.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="962.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">CVE → Product →</text>
+<text x="962.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Version Check</text>
+<rect x="1106.0" y="1028" width="236.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="1224.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Brand / Keyword</text>
+<text x="1224.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Evidence</text>
+<rect x="284.0" y="1176" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1212.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Customer Detection</text>
+<text x="414.0" y="1232.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">and Match Proof</text>
+<rect x="570.0" y="1176" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1212.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Probable Exposure</text>
+<text x="700.0" y="1232.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Unknown Version</text>
+<rect x="856.0" y="1176" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="986.0" y="1212.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Global Threat Signal</text>
+<text x="986.0" y="1232.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">No False Attribution</text>
+<polygon points="700.0,1324 784.0,1384.0 700.0,1444.0 616.0,1384.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="1372.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">STIX</text>
+<text x="700.0" y="1390.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Mapping</text>
+<text x="700.0" y="1408.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Type?</text>
+<rect x="284.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Standard Observable</text>
+<text x="414.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">STIX Pattern</text>
+<rect x="570.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">CVE Vulnerability</text>
+<text x="700.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Object</text>
+<rect x="856.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="986.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Open pattern_type</text>
+<text x="986.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">argus</text>
+<rect x="427.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Deterministic UUIDv5</text>
+<text x="557.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Deduplicated Bundle</text>
+<rect x="713.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="843.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Detection / Finding</text>
+<text x="843.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Analyst Review</text>
+<text x="700.0" y="1835" text-anchor="middle" font-family="Arial" font-size="13" fill="#333">Solid arrow: primary processing flow    |    Dashed labeled arrow: policy, exception, or feedback path    |    Diamond: decision</text>
+</svg>

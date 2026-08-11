@@ -1,0 +1,427 @@
+name: argus-unified
+
+x-argus-service: &argus-service
+  image: ${ARGUS_IMAGE:-argus-unified:local}
+  init: true
+  restart: unless-stopped
+  security_opt:
+    - no-new-privileges:true
+
+x-postgres-environment: &postgres-environment
+  POSTGRES_USER: ${POSTGRES_USER:-arguswatch}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: ${POSTGRES_DB:-arguswatch}
+
+x-provider-environment: &provider-environment
+  ABUSEIPDB_API_KEY: ${ABUSEIPDB_API_KEY:-}
+  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+  BINARYEDGE_API_KEY: ${BINARYEDGE_API_KEY:-}
+  BREACH_DIRECTORY_API_KEY: ${BREACH_DIRECTORY_API_KEY:-}
+  CENSYS_API_ID: ${CENSYS_API_ID:-}
+  CENSYS_API_SECRET: ${CENSYS_API_SECRET:-}
+  CROWDSTRIKE_CLIENT_ID: ${CROWDSTRIKE_CLIENT_ID:-}
+  CROWDSTRIKE_SECRET: ${CROWDSTRIKE_SECRET:-}
+  CYBERINT_API_KEY: ${CYBERINT_API_KEY:-}
+  CYBERSIXGILL_CLIENT_ID: ${CYBERSIXGILL_CLIENT_ID:-}
+  CYBERSIXGILL_SECRET: ${CYBERSIXGILL_SECRET:-}
+  FLARE_API_KEY: ${FLARE_API_KEY:-}
+  GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+  GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+  GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+  GRAYHATWARFARE_API_KEY: ${GRAYHATWARFARE_API_KEY:-}
+  GREYNOISE_API_KEY: ${GREYNOISE_API_KEY:-}
+  HIBP_API_KEY: ${HIBP_API_KEY:-}
+  HUDSON_ROCK_API_KEY: ${HUDSON_ROCK_API_KEY:-}
+  INTELX_API_KEY: ${INTELX_API_KEY:-}
+  LEAKCHECK_API_KEY: ${LEAKCHECK_API_KEY:-}
+  LEAKIX_API_KEY: ${LEAKIX_API_KEY:-}
+  MANDIANT_API_KEY: ${MANDIANT_API_KEY:-}
+  OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+  OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+  OTX_API_KEY: ${OTX_API_KEY:-}
+  PASTE_EE_API_KEY: ${PASTE_EE_API_KEY:-}
+  PHISHTANK_API_KEY: ${PHISHTANK_API_KEY:-}
+  PULSEDIVE_API_KEY: ${PULSEDIVE_API_KEY:-}
+  RECORDED_FUTURE_KEY: ${RECORDED_FUTURE_KEY:-}
+  SECURITYTRAILS_API_KEY: ${SECURITYTRAILS_API_KEY:-}
+  SERPAPI_KEY: ${SERPAPI_KEY:-}
+  SHODAN_API_KEY: ${SHODAN_API_KEY:-}
+  SOCRADAR_API_KEY: ${SOCRADAR_API_KEY:-}
+  SPYCLOUD_API_KEY: ${SPYCLOUD_API_KEY:-}
+  URLSCAN_API_KEY: ${URLSCAN_API_KEY:-}
+  VIRUSTOTAL_API_KEY: ${VIRUSTOTAL_API_KEY:-}
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      <<: *postgres-environment
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}
+      REDISCLI_AUTH: ${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --requirepass
+      - ${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    restart: unless-stopped
+    environment:
+      CLICKHOUSE_DB: csv_warehouse
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set CLICKHOUSE_PASSWORD in .env}
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./clickhouse-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8123/ping | grep -q Ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 20s
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9200 >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 45s
+
+  intel-proxy:
+    <<: *argus-service
+    working_dir: /app/intel-proxy
+    command: ["uvicorn", "proxy_server:app", "--host", "0.0.0.0", "--port", "9000", "--log-level", "info"]
+    environment:
+      <<: [*postgres-environment, *provider-environment]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 20s
+
+  recon-engine:
+    <<: *argus-service
+    working_dir: /app/recon-engine
+    command: ["uvicorn", "recon_server:app", "--host", "0.0.0.0", "--port", "9001", "--log-level", "info"]
+    environment:
+      <<: *postgres-environment
+      ALLOW_UNSCOPED_RECON: ${ALLOW_UNSCOPED_RECON:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9001/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 20s
+
+  breach-search:
+    <<: *argus-service
+    working_dir: /app/backend
+    command: ["uvicorn", "modules.breach.search_engine.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      UNIFIED_CLICKHOUSE_HOST: clickhouse
+      UNIFIED_CLICKHOUSE_PORT: "8123"
+      UNIFIED_CLICKHOUSE_DATABASE: csv_warehouse
+      UNIFIED_CLICKHOUSE_TABLE: raw_data
+      UNIFIED_CLICKHOUSE_USERNAME: default
+      UNIFIED_CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set CLICKHOUSE_PASSWORD in .env}
+      UNIFIED_ES_HOST: elasticsearch
+      UNIFIED_ES_PORT: "9200"
+      UNIFIED_REDIS_HOST: redis
+      UNIFIED_REDIS_PORT: "6379"
+      UNIFIED_REDIS_PASSWORD: ${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}
+      API_KEYS: ${BREACH_SEARCH_API_KEY:?Set BREACH_SEARCH_API_KEY in .env}
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 25s
+
+  backend:
+    <<: *argus-service
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    working_dir: /app/backend
+    command: ["python", "-m", "arguswatch.scripts.start_api"]
+    environment:
+      <<: [*postgres-environment, *provider-environment]
+      REDIS_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/1
+      INTEL_PROXY_URL: http://intel-proxy:9000
+      RECON_ENGINE_URL: http://recon-engine:9001
+      BREACH_API_BASE_URL: http://breach-search:8000
+      BREACH_SEARCH_API_KEY: ${BREACH_SEARCH_API_KEY:?Set BREACH_SEARCH_API_KEY in .env}
+      ARGUS_BREACH_DATA_DIR: /data/breach
+      ARGUS_IMAGE_INTEL_DATA_DIR: /data/image-intel
+      IMAGE_INTEL_BROWSER_SEARCH_ENABLED: ${IMAGE_INTEL_BROWSER_SEARCH_ENABLED:-true}
+      IMAGE_INTEL_USE_SERPAPI: ${IMAGE_INTEL_USE_SERPAPI:-false}
+      IMAGE_INTEL_VISION_MODEL: ${IMAGE_INTEL_VISION_MODEL:-llava:7b}
+      IMAGE_INTEL_OPENROUTER_MODEL: ${IMAGE_INTEL_OPENROUTER_MODEL:-qwen/qwen2.5-vl-32b-instruct:free}
+      IMAGE_INTEL_MAX_UPLOAD_MB: ${IMAGE_INTEL_MAX_UPLOAD_MB:-24}
+      IMAGE_INTEL_MAX_MEGAPIXELS: ${IMAGE_INTEL_MAX_MEGAPIXELS:-50}
+      IMAGE_INTEL_JOB_TTL_HOURS: ${IMAGE_INTEL_JOB_TTL_HOURS:-168}
+      IMAGE_INTEL_PROVIDER_TIMEOUT: ${IMAGE_INTEL_PROVIDER_TIMEOUT:-90}
+      IMAGE_INTEL_MAX_CROP_PASSES: ${IMAGE_INTEL_MAX_CROP_PASSES:-2}
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/chromium
+      AUTH_DISABLED: ${AUTH_DISABLED:-false}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?Set JWT_SECRET_KEY in .env}
+      JWT_EXPIRE_HOURS: ${JWT_EXPIRE_HOURS:-24}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}
+      API_KEY: ${API_KEY:-}
+      AGENT_SIGNING_KEY: ${AGENT_SIGNING_KEY:-}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://127.0.0.1:7777}
+      TRUSTED_PROXY_IPS: ${TRUSTED_PROXY_IPS:-127.0.0.1}
+      AI_AUTONOMOUS: ${AI_AUTONOMOUS:-false}
+      AI_ACTIVE_PROVIDER: ${AI_ACTIVE_PROVIDER:-ollama}
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:8b}
+      INTELBASE_API_KEY: ${INTELBASE_API_KEY:-}
+      INTELBASE_EMAIL_LOOKUP_URL: ${INTELBASE_EMAIL_LOOKUP_URL:-https://api.intelbase.is/lookup/email}
+      TELEGRAM_API_ID: ${TELEGRAM_API_ID:-}
+      TELEGRAM_API_HASH: ${TELEGRAM_API_HASH:-}
+      TELEGRAM_PHONE: ${TELEGRAM_PHONE:-}
+      TELEGRAM_CHANNELS: ${TELEGRAM_CHANNELS:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TOR_PROXY: ${TOR_PROXY:-}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      ALERT_EMAIL: ${ALERT_EMAIL:-}
+      CISO_EMAIL: ${CISO_EMAIL:-}
+    ports:
+      - ${ARGUS_BIND_ADDRESS:-127.0.0.1}:${ARGUS_PORT:-7777}:8000
+    volumes:
+      - reports_data:/app/reports
+      - image_intel_data:/data/image-intel
+      - type: bind
+        source: ${BREACH_DATA_PATH:-./data/breach}
+        target: /data/breach
+        read_only: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      intel-proxy:
+        condition: service_healthy
+      recon-engine:
+        condition: service_healthy
+      breach-search:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 35s
+
+  celery-worker:
+    <<: *argus-service
+    working_dir: /app/backend
+    command: ["celery", "-A", "arguswatch.celery_app", "worker", "--loglevel=info", "--concurrency=4"]
+    environment:
+      <<: [*postgres-environment, *provider-environment]
+      REDIS_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/1
+      INTEL_PROXY_URL: http://intel-proxy:9000
+      RECON_ENGINE_URL: http://recon-engine:9001
+      BREACH_API_BASE_URL: http://breach-search:8000
+      AI_AUTONOMOUS: ${AI_AUTONOMOUS:-false}
+      AI_ACTIVE_PROVIDER: ${AI_ACTIVE_PROVIDER:-ollama}
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:8b}
+      ARGUS_IMAGE_INTEL_DATA_DIR: /data/image-intel
+      IMAGE_INTEL_BROWSER_SEARCH_ENABLED: ${IMAGE_INTEL_BROWSER_SEARCH_ENABLED:-true}
+      IMAGE_INTEL_USE_SERPAPI: ${IMAGE_INTEL_USE_SERPAPI:-false}
+      IMAGE_INTEL_VISION_MODEL: ${IMAGE_INTEL_VISION_MODEL:-llava:7b}
+      IMAGE_INTEL_OPENROUTER_MODEL: ${IMAGE_INTEL_OPENROUTER_MODEL:-qwen/qwen2.5-vl-32b-instruct:free}
+      IMAGE_INTEL_MAX_UPLOAD_MB: ${IMAGE_INTEL_MAX_UPLOAD_MB:-24}
+      IMAGE_INTEL_MAX_MEGAPIXELS: ${IMAGE_INTEL_MAX_MEGAPIXELS:-50}
+      IMAGE_INTEL_JOB_TTL_HOURS: ${IMAGE_INTEL_JOB_TTL_HOURS:-168}
+      IMAGE_INTEL_PROVIDER_TIMEOUT: ${IMAGE_INTEL_PROVIDER_TIMEOUT:-90}
+      IMAGE_INTEL_MAX_CROP_PASSES: ${IMAGE_INTEL_MAX_CROP_PASSES:-2}
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/chromium
+      TELEGRAM_API_ID: ${TELEGRAM_API_ID:-}
+      TELEGRAM_API_HASH: ${TELEGRAM_API_HASH:-}
+      TELEGRAM_PHONE: ${TELEGRAM_PHONE:-}
+      TELEGRAM_CHANNELS: ${TELEGRAM_CHANNELS:-}
+      TELEGRAM_SESSION_PATH: /app/sessions/arguswatch
+      TOR_PROXY: ${TOR_PROXY:-}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      ALERT_EMAIL: ${ALERT_EMAIL:-}
+      CISO_EMAIL: ${CISO_EMAIL:-}
+    volumes:
+      - reports_data:/app/reports
+      - telegram_sessions:/app/sessions
+      - image_intel_data:/data/image-intel
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A arguswatch.celery_app inspect ping --timeout 10 2>/dev/null | grep -q OK"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 30s
+
+  celery-beat:
+    <<: *argus-service
+    working_dir: /app/backend
+    command: ["celery", "-A", "arguswatch.celery_app", "beat", "--loglevel=info", "--pidfile=/tmp/celerybeat.pid"]
+    environment:
+      <<: *postgres-environment
+      REDIS_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/0
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}@redis:6379/1
+      AI_AUTONOMOUS: ${AI_AUTONOMOUS:-false}
+      AI_ACTIVE_PROVIDER: ${AI_ACTIVE_PROVIDER:-ollama}
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:8b}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/celerybeat.pid && kill -0 $$(cat /tmp/celerybeat.pid)"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  breach-ingest:
+    <<: *argus-service
+    profiles: ["tools"]
+    restart: "no"
+    working_dir: /app/backend
+    command: ["python", "ingest.py", "--data-root", "/data/breach", "--workers", "2"]
+    environment:
+      CH_HOST: clickhouse
+      CH_PORT: "8123"
+      CH_USERNAME: default
+      CH_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set CLICKHOUSE_PASSWORD in .env}
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?Set REDIS_PASSWORD in .env}
+      SALT: ${BREACH_EMAIL_HASH_SALT:?Set BREACH_EMAIL_HASH_SALT in .env}
+    volumes:
+      - type: bind
+        source: ${BREACH_DATA_PATH:-./data/breach}
+        target: /data/breach
+        read_only: true
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - 127.0.0.1:${PROMETHEUS_PORT:-9091}:9090
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  ollama:
+    image: ollama/ollama:${OLLAMA_VERSION:-0.32.7}
+    profiles: ["ai"]
+    restart: unless-stopped
+    environment:
+      OLLAMA_HOST: 0.0.0.0
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  tor-proxy:
+    image: dperson/torproxy:latest
+    profiles: ["tor"]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redis_data:
+  clickhouse_data:
+  elasticsearch_data:
+  reports_data:
+  image_intel_data:
+  telegram_sessions:
+  prometheus_data:
+  ollama_data:

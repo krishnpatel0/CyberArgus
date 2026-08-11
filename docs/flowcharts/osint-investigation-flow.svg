@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1864" viewBox="0 0 1400 1864">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#454545"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="700.0" y="58" text-anchor="middle" font-family="Arial" font-size="38" font-weight="700" fill="#000">OSINT Investigation Flow</text>
+<text x="700.0" y="91" text-anchor="middle" font-family="Arial" font-size="18" fill="#333">Profile-aware discovery, verification, correlation, and evidence control</text>
+<line x1="235" y1="112" x2="1165" y2="112" stroke="#999" stroke-width="2"/>
+<rect x="24" y="116" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="115" width="244" height="27" fill="#fff"/>
+<text x="58" y="134" font-family="Arial" font-size="15" font-weight="700" fill="#333">AUTHORITY AND SUBJECT SETUP</text>
+<rect x="24" y="560" width="1352" height="432" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="559" width="244" height="27" fill="#fff"/>
+<text x="58" y="578" font-family="Arial" font-size="15" font-weight="700" fill="#333">DISCOVERY AND RESPONSE VERIFICATION</text>
+<rect x="24" y="1004" width="1352" height="580" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="1003" width="244" height="27" fill="#fff"/>
+<text x="58" y="1022" font-family="Arial" font-size="15" font-weight="700" fill="#333">SCORING AND DISAMBIGUATION</text>
+<rect x="24" y="1596" width="1352" height="136" rx="18" fill="#f7f7f7" stroke="#888" stroke-width="2"/>
+<rect x="46" y="1595" width="244" height="27" fill="#fff"/>
+<text x="58" y="1614" font-family="Arial" font-size="15" font-weight="700" fill="#333">EVIDENCE OUTPUTS</text>
+<path d="M557.0,220.0 C557.0,254.0 557.0,254.0 557.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,220.0 C843.0,254.0 843.0,254.0 843.0,288.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,368.0 C557.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,368.0 C843.0,402.0 700.0,402.0 700.0,436.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 271.0,550.0 271.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 557.0,550.0 557.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 843.0,550.0 843.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,556.0 C700.0,590.0 1129.0,550.0 1129.0,584.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M271.0,664.0 C271.0,698.0 414.0,698.0 414.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,664.0 C557.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,664.0 C843.0,698.0 700.0,698.0 700.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1129.0,664.0 C1129.0,698.0 986.0,698.0 986.0,732.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,812.0 C414.0,846.0 271.0,846.0 271.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,812.0 C700.0,846.0 843.0,846.0 843.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,852.0 C986.0,886.0 1129.0,846.0 1129.0,880.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M271.0,960.0 C271.0,994.0 414.0,994.0 414.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M557.0,960.0 C557.0,994.0 700.0,994.0 700.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M843.0,960.0 C843.0,994.0 700.0,994.0 700.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1129.0,960.0 C1129.0,994.0 986.0,994.0 986.0,1028.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1108.0 C414.0,1142.0 700.0,1142.0 700.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1108.0 C700.0,1142.0 700.0,1142.0 700.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1108.0 C986.0,1142.0 700.0,1142.0 700.0,1176.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1296.0 C700.0,1330.0 414.0,1290.0 414.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1296.0 C700.0,1330.0 700.0,1290.0 700.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1296.0 C700.0,1330.0 986.0,1290.0 986.0,1324.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1404.0 C414.0,1438.0 414.0,1438.0 414.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1404.0 C700.0,1438.0 700.0,1438.0 700.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1404.0 C986.0,1438.0 986.0,1438.0 986.0,1472.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M414.0,1552.0 C414.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M700.0,1552.0 C700.0,1586.0 557.0,1586.0 557.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M986.0,1552.0 C986.0,1586.0 843.0,1586.0 843.0,1620.0" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M973.0,180.0 L1366,180.0 L1366,496.0 L784.0,496.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1234.5" y="470.0" width="141.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="486.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Scope + privacy rules</text>
+<path d="M616.0,496.0 L34,496.0 L34,180.0 L427.0,180.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="23.5" y="154.0" width="143.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="95.0" y="170.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Blocked: revise scope</text>
+<path d="M1070.0,792.0 L1366,792.0 L1366,328.0 L973.0,328.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1225.5" y="302.0" width="159.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="318.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Challenge: retry or pause</text>
+<path d="M570.0,1364.0 L34,1364.0 L34,328.0 L427.0,328.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="27.0" y="302.0" width="136.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="95.0" y="318.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Refine subject profile</text>
+<path d="M1116.0,1512.0 L1366,1512.0 L1366,624.0 L687.0,624.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1255.0" y="598.0" width="100.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="614.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Site calibration</text>
+<path d="M973.0,1660.0 L1366,1660.0 L1366,1512.0 L830.0,1512.0" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="11 7" marker-end="url(#arrow)"/>
+<rect x="1231.0" y="1486.0" width="148.0" height="22.0" rx="4" fill="#fff" stroke="#b5b5b5" stroke-width="1"/>
+<text x="1305.0" y="1502.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#222">Analyst-approved pivot</text>
+<rect x="427.0" y="140" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Authorized</text>
+<text x="557.0" y="196.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Investigator</text>
+<rect x="713.0" y="140" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="843.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Scope / Privacy</text>
+<text x="843.0" y="196.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Rate Policy</text>
+<rect x="427.0" y="288" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Subject Profile</text>
+<text x="557.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Names · Email · Phone</text>
+<rect x="713.0" y="288" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="843.0" y="324.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Job Controller</text>
+<text x="843.0" y="344.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Start · Pause · Resume</text>
+<polygon points="700.0,436 784.0,496.0 700.0,556.0 616.0,496.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="493.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Authorized</text>
+<text x="700.0" y="511.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Scope?</text>
+<rect x="141.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="271.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Username / Alias</text>
+<text x="271.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Permutations</text>
+<rect x="427.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Site Catalog +</text>
+<text x="557.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Direct Checks</text>
+<rect x="713.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">SERP Discovery</text>
+<text x="843.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Dork Queries</text>
+<rect x="999.0" y="584" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="1129.0" y="620.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">CSV / Intelbase</text>
+<text x="1129.0" y="640.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Local Search</text>
+<rect x="284.0" y="732" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="768.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Bounded HTTP</text>
+<text x="414.0" y="788.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Retries · Delays</text>
+<rect x="570.0" y="732" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="768.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Status / Redirect</text>
+<text x="700.0" y="788.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Signals</text>
+<polygon points="986.0,732 1070.0,792.0 986.0,852.0 902.0,792.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="986.0" y="780.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">WAF /</text>
+<text x="986.0" y="798.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Challenge</text>
+<text x="986.0" y="816.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Detection</text>
+<rect x="141.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="271.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Positive / Negative</text>
+<text x="271.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Markers</text>
+<rect x="427.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="557.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">DOM Skeleton</text>
+<text x="557.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Jaccard</text>
+<rect x="713.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="843.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Profile Metadata</text>
+<text x="843.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Bio · Links · Location</text>
+<rect x="999.0" y="880" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="1129.0" y="916.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Alternate JSON /</text>
+<text x="1129.0" y="936.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Public Endpoints</text>
+<rect x="284.0" y="1028" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Subject-Match</text>
+<text x="414.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Score</text>
+<rect x="570.0" y="1028" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Input Profile</text>
+<text x="700.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Strength Prior</text>
+<rect x="856.0" y="1028" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="986.0" y="1064.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Evidence Chain</text>
+<text x="986.0" y="1084.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Signal Weights</text>
+<polygon points="700.0,1176 784.0,1236.0 700.0,1296.0 616.0,1236.0" fill="#4a4a4a" stroke="#000" stroke-width="2"/>
+<text x="700.0" y="1233.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Confidence</text>
+<text x="700.0" y="1251.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Tier</text>
+<rect x="284.0" y="1324" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1360.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Confirmed / High</text>
+<text x="414.0" y="1380.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Candidates</text>
+<rect x="570.0" y="1324" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1360.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Ambiguous /</text>
+<text x="700.0" y="1380.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Unverified</text>
+<rect x="856.0" y="1324" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="986.0" y="1360.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Not Found /</text>
+<text x="986.0" y="1380.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Negative Evidence</text>
+<rect x="284.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="414.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Cross-Platform</text>
+<text x="414.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Correlation</text>
+<rect x="570.0" y="1472" width="260.0" height="80" rx="7" fill="#383838" stroke="#111" stroke-width="2"/>
+<text x="700.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">New Anchors</text>
+<text x="700.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#fff">Emails · Phones · URLs</text>
+<rect x="856.0" y="1472" width="260.0" height="80" rx="8" fill="#e8e8e8" stroke="#222" stroke-width="2"/>
+<text x="986.0" y="1508.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Known +/- Account</text>
+<text x="986.0" y="1528.0" text-anchor="middle" font-family="Arial" font-size="17" font-weight="400" fill="#000">Calibration</text>
+<rect x="427.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="557.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Result + Evidence</text>
+<text x="557.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Progress / Export</text>
+<rect x="713.0" y="1620" width="260.0" height="80" rx="40.0" fill="#111" stroke="#000" stroke-width="2"/>
+<text x="843.0" y="1656.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">Analyst Review</text>
+<text x="843.0" y="1676.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">and Attribution Decision</text>
+<text x="700.0" y="1835" text-anchor="middle" font-family="Arial" font-size="13" fill="#333">Solid arrow: primary processing flow    |    Dashed labeled arrow: policy, exception, or feedback path    |    Diamond: decision</text>
+</svg>
